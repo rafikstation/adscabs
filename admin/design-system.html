@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taxi Media — Design System</title>
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/components.css">
+<link rel="stylesheet" href="/styles/admin.css">
+<link rel="stylesheet" href="admin.css">
+<style>
+/* Self-contained styles with hardcoded fallbacks so this page always renders */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:#1a1a1a;color:#e0e0e0;
+  min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+
+.ds-wrap{flex:1;padding:32px;max-width:1100px;overflow-y:auto;}
+
+.ds-h1{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px;}
+.ds-lead{font-size:13.5px;color:#888;margin-bottom:36px;line-height:1.6;}
+.ds-lead code{background:rgba(255,255,255,.07);padding:1px 6px;border-radius:3px;font-size:11px;font-family:monospace;}
+
+.ds-section{margin-bottom:48px;}
+.ds-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#888;padding-bottom:10px;margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.09);}
+
+/* Swatches */
+.swatch-grid{display:flex;flex-wrap:wrap;gap:10px;}
+.swatch{display:flex;flex-direction:column;gap:5px;width:104px;}
+.swatch-box{height:52px;border-radius:6px;border:1px solid rgba(255,255,255,.08);}
+.swatch-name{font-size:10px;font-weight:600;color:#aaa;}
+.swatch-value{font-size:9px;color:#666;font-family:monospace;}
+
+/* Typography */
+.typo-row{display:flex;align-items:baseline;gap:18px;padding:11px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);}
+.typo-row:last-child{border-bottom:none;}
+.typo-meta{width:180px;flex:none;}
+.typo-key{font-size:11px;font-weight:600;color:#aaa;}
+.typo-val{font-size:10px;color:#666;font-family:monospace;margin-top:2px;}
+.typo-sample{color:#e0e0e0;}
+
+/* Buttons */
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+/* Using actual component classes from components.css */
+
+/* Badges */
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px;}
+
+/* Forms */
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:560px;}
+.p-input{font-family:inherit;font-size:13.5px;color:#e0e0e0;background:#181818;
+  border:1px solid rgba(255,255,255,.09);border-radius:4px;padding:10px 12px;
+  outline:none;width:100%;transition:border-color .15s;}
+.p-input:focus{border-color:rgba(235,94,40,.6);}
+.p-input::placeholder{color:#666;}
+
+/* Cards */
+.card-row{display:flex;gap:16px;flex-wrap:wrap;}
+.ds-card{padding:20px;border-radius:6px;border:1px solid rgba(255,255,255,.09);width:220px;}
+.ds-card.light{background:#fff;color:#161616;}
+.ds-card.dark{background:#141414;color:#fff;}
+.ds-card h4{font-size:14px;font-weight:700;margin-bottom:8px;}
+.ds-card p{font-size:12.5px;color:#6f6f6f;line-height:1.55;}
+.ds-card.dark p{color:#aaa;}
+.ds-card-rule{width:34px;height:3px;background:#EB5E28;border-radius:2px;margin-top:14px;}
+
+/* Radius */
+.radius-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
+.radius-box{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.radius-sample{width:56px;height:56px;background:#EB5E28;opacity:.8;}
+.radius-label{font-size:10px;color:#666;font-family:monospace;text-align:center;}
+
+/* Shadows */
+.shadow-row{display:flex;gap:20px;flex-wrap:wrap;}
+.shadow-item{text-align:center;}
+.shadow-box{width:90px;height:56px;background:#202020;border-radius:6px;}
+.shadow-meta{font-size:10px;color:#666;margin-top:6px;font-family:monospace;}
+
+/* Spacing */
+.space-col{display:flex;flex-direction:column;gap:6px;}
+.space-item{display:flex;align-items:center;gap:12px;}
+.space-key{font-size:10px;color:#666;font-family:monospace;width:80px;flex:none;}
+.space-bar{height:12px;background:#EB5E28;opacity:.55;border-radius:2px;flex:none;}
+.space-val{font-size:10px;color:#888;font-family:monospace;}
+
+/* Status */
+.status-col{display:flex;flex-direction:column;gap:8px;max-width:420px;}
+.status-box{padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;}
+
+/* Token table */
+.token-table{width:100%;border-collapse:collapse;font-size:12px;}
+.token-table th{text-align:left;padding:8px 10px;color:#666;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;font-size:10px;
+  border-bottom:1px solid rgba(255,255,255,.09);}
+.token-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.05);}
+.token-table tr:last-child td{border-bottom:none;}
+.tok-name{color:#e0e0e0;font-family:monospace;}
+.tok-val{color:#EB5E28;font-family:monospace;}
+.tok-use{color:#888;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-logo" href="/">
+    <span class="t">TAXI</span><span class="m">MEDIA</span>
+  </a>
+  <span class="topbar-badge">Design System</span>
+  <div class="topbar-spacer"></div>
+  <a class="topbar-btn" href="/admin/dashboard.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Dashboard
+  </a>
+  <a class="topbar-btn" href="/" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    Site
+  </a>
+</div>
+
+<div class="ds-wrap">
+  <h1 class="ds-h1">ADSCABS Design System</h1>
+  <p class="ds-lead">Single source of truth for all design tokens and components. All values defined in
+    <code>/styles/tokens.css</code> — change once, updates everywhere.</p>
+
+  <!-- Colours -->
+  <section class="ds-section">
+    <div class="ds-title">Colour Palette</div>
+    <div class="swatch-grid" id="swatchGrid"></div>
+  </section>
+
+  <!-- Typography -->
+  <section class="ds-section">
+    <div class="ds-title">Typography Scale</div>
+    <div id="typoScale"></div>
+  </section>
+
+  <!-- Buttons -->
+  <section class="ds-section">
+    <div class="ds-title">Button System</div>
+    <div class="btn-row">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-primary btn-sm">Small</button>
+      <button class="btn btn-primary btn-lg">Large</button>
+      <button class="btn btn-primary" style="opacity:.4;cursor:default;" disabled>Disabled</button>
+    </div>
+    <div class="badge-row">
+      <span class="badge">Default</span>
+      <span class="badge badge-primary">Primary</span>
+      <span class="badge badge-success">Success</span>
+      <span class="badge badge-error">Error</span>
+    </div>
+  </section>
+
+  <!-- Forms -->
+  <section class="ds-section">
+    <div class="ds-title">Form Inputs</div>
+    <div class="form-grid">
+      <input class="p-input" type="text" placeholder="Text input">
+      <input class="p-input" type="email" placeholder="email@example.com">
+      <input class="p-input" type="text" value="Focused state" id="focusDemo">
+      <select class="p-input">
+        <option>Select option</option>
+        <option>Option A</option>
+        <option>Option B</option>
+      </select>
+      <textarea class="p-input" style="min-height:64px;resize:none;grid-column:1/-1;" placeholder="Textarea…"></textarea>
+    </div>
+  </section>
+
+  <!-- Cards -->
+  <section class="ds-section">
+    <div class="ds-title">Cards</div>
+    <div class="card-row">
+      <div class="ds-card light">
+        <h4>Light card</h4>
+        <p>Card body on light background. Used in reach / grey sections.</p>
+        <div class="ds-card-rule"></div>
+      </div>
+      <div class="ds-card dark">
+        <h4>Dark card</h4>
+        <p>Card body on dark surface. Used in network / admin panels.</p>
+        <div class="ds-card-rule"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Border Radius -->
+  <section class="ds-section">
+    <div class="ds-title">Border Radius</div>
+    <div class="radius-row" id="radiusRow"></div>
+  </section>
+
+  <!-- Shadows -->
+  <section class="ds-section">
+    <div class="ds-title">Shadows</div>
+    <div class="shadow-row" id="shadowRow"></div>
+  </section>
+
+  <!-- Spacing -->
+  <section class="ds-section">
+    <div class="ds-title">Spacing Scale</div>
+    <div class="space-col" id="spaceRow"></div>
+  </section>
+
+  <!-- Status -->
+  <section class="ds-section">
+    <div class="ds-title">Status / Alerts</div>
+    <div class="status-col">
+      <div class="status-box" style="background:#1a3d1a;border:1px solid #4caf50;color:#7fde7f;">✓ Success — action completed</div>
+      <div class="status-box" style="background:#3d1a1a;border:1px solid #ff5252;color:#ff8989;">✕ Error — something went wrong</div>
+      <div class="status-box" style="background:rgba(235,94,40,.1);border:1px solid rgba(235,94,40,.35);color:#EB5E28;">⚠ Brand accent alert</div>
+    </div>
+  </section>
+
+  <!-- Token Reference -->
+  <section class="ds-section">
+    <div class="ds-title">Token Reference</div>
+    <table class="token-table">
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody id="tokenTable"></tbody>
+    </table>
+  </section>
+</div>
+
+<script>
+/* ── Colour swatches ──────────────────────────────────────── */
+var colours = [
+  ['Brand Orange','#EB5E28'],['Orange hover','#d4541f'],['Hero Yellow','#F7B500'],
+  ['Yellow hover','#ffc41f'],['Pure black','#000000'],['Dark surface','#0c0c0c'],
+  ['Ink','#141414'],['Panel','#171717'],['Elevated','#1a1a1a'],['Card dark','#202020'],
+  ['Input bg','#181818'],['Light bg','#f3f3f3'],['White card','#ffffff'],
+  ['Text primary','#161616'],['Text muted','#6f6f6f'],['Text light','#cfcfcf'],
+  ['Success','#4caf50'],['Error','#ff5252'],
+];
+var grid = document.getElementById('swatchGrid');
+colours.forEach(function(c){
+  var div = document.createElement('div');
+  div.className = 'swatch';
+  div.innerHTML = '<div class="swatch-box" style="background:'+c[1]+';"></div>'
+    +'<div class="swatch-name">'+c[0]+'</div>'
+    +'<div class="swatch-value">'+c[1]+'</div>';
+  grid.appendChild(div);
+});
+
+/* ── Typography scale ─────────────────────────────────────── */
+var typo = [
+  ['--text-2xs','10px','Badge labels'],
+  ['--text-xs','11px','Caption text'],
+  ['--text-sm','12px','Admin labels, kickers'],
+  ['--text-base','13.5px','Body text'],
+  ['--text-md','14px','Buttons, nav'],
+  ['--text-lg','15px','Section body'],
+  ['--text-xl','17px','Hero subtitle'],
+  ['--text-2xl','19px','Brand names'],
+  ['--text-3xl','23px','Stat numbers'],
+  ['--text-4xl','34px','Network heading'],
+  ['--text-5xl','40px','Section headings'],
+  ['--text-6xl','clamp(40px,5vw,60px)','Page hero h1'],
+  ['--text-hero','clamp(42px,5.6vw,72px)','Home hero h1'],
+];
+var typoEl = document.getElementById('typoScale');
+typo.forEach(function(t){
+  var div = document.createElement('div');
+  div.className = 'typo-row';
+  div.innerHTML = '<div class="typo-meta"><div class="typo-key">'+t[0]+'</div>'
+    +'<div class="typo-val">'+t[1]+'</div></div>'
+    +'<div class="typo-sample" style="font-size:'+t[1]+';line-height:1.1;">'+t[2]+'</div>';
+  typoEl.appendChild(div);
+});
+
+/* ── Border radius ────────────────────────────────────────── */
+var radii = [['xs','2px'],['sm','4px'],['md','6px'],['lg','8px'],['xl','12px'],['2xl','14px'],['full','9999px']];
+var rr = document.getElementById('radiusRow');
+radii.forEach(function(r){
+  var div = document.createElement('div');
+  div.className = 'radius-box';
+  div.innerHTML = '<div class="radius-sample" style="border-radius:'+r[1]+';"></div>'
+    +'<div class="radius-label">'+r[0]+'<br>'+r[1]+'</div>';
+  rr.appendChild(div);
+});
+
+/* ── Shadows ──────────────────────────────────────────────── */
+var shadows = [
+  ['xs','0 1px 4px rgba(0,0,0,.08)'],
+  ['sm','0 12px 30px rgba(0,0,0,.05)'],
+  ['md','0 12px 30px rgba(0,0,0,.10)'],
+  ['lg','0 18px 40px rgba(0,0,0,.12)'],
+  ['dark','0 8px 24px rgba(0,0,0,.5)'],
+];
+var sr = document.getElementById('shadowRow');
+shadows.forEach(function(s){
+  var div = document.createElement('div');
+  div.className = 'shadow-item';
+  div.innerHTML = '<div class="shadow-box" style="box-shadow:'+s[1]+';"></div>'
+    +'<div class="shadow-meta">--shadow-'+s[0]+'</div>';
+  sr.appendChild(div);
+});
+
+/* ── Spacing scale ────────────────────────────────────────── */
+var spaces = [
+  ['--space-1','4px'],['--space-2','8px'],['--space-3','12px'],
+  ['--space-4','16px'],['--space-5','20px'],['--space-6','24px'],
+  ['--space-8','32px'],['--space-10','40px'],['--space-12','48px'],
+  ['--space-14','56px'],['--space-20','78px'],
+];
+var sp = document.getElementById('spaceRow');
+spaces.forEach(function(s){
+  var div = document.createElement('div');
+  div.className = 'space-item';
+  div.innerHTML = '<div class="space-key">'+s[0]+'</div>'
+    +'<div class="space-bar" style="width:'+s[1]+';"></div>'
+    +'<div class="space-val">'+s[1]+'</div>';
+  sp.appendChild(div);
+});
+
+/* ── Token table ──────────────────────────────────────────── */
+var tokens = [
+  ['--color-primary','#EB5E28','Brand accent — all non-hero sections'],
+  ['--color-accent','#F7B500','Legacy accent — hero & header only'],
+  ['--bg-dark','#0c0c0c','Primary dark surface (header, footer)'],
+  ['--bg-light','#f3f3f3','Light section backgrounds'],
+  ['--text-primary','#161616','Main body text'],
+  ['--text-secondary','#6f6f6f','Muted / subdued text'],
+  ['--border-hairline','rgba(255,255,255,.12)','Dark-theme separator'],
+  ['--border-focus','rgba(235,94,40,.6)','Input focus ring'],
+  ['--radius-sm','4px','Buttons, small elements'],
+  ['--radius-md','6px','Cards, panels, sections'],
+  ['--shadow-sm','0 12px 30px rgba(0,0,0,.05)','Light card shadow'],
+  ['--font-sans','"Helvetica Neue", Helvetica, Arial','Primary typeface'],
+  ['--transition-base','.15s ease','Standard interaction duration'],
+];
+var tb = document.getElementById('tokenTable');
+tokens.forEach(function(t){
+  var tr = document.createElement('tr');
+  tr.innerHTML = '<td class="tok-name">'+t[0]+'</td>'
+    +'<td class="tok-val">'+t[1]+'</td>'
+    +'<td class="tok-use">'+t[2]+'</td>';
+  tb.appendChild(tr);
+});
+
+document.getElementById('focusDemo').focus();
+</script>
+</body>
+</html>

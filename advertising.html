@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advertising — AdsCabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/design-system.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="/typography-overrides.css">
+<link rel="stylesheet" href="/design-tokens.css">
+<script src="image-slot.js"></script>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html">
+      <img src="/brand/header-logo.png" alt="Logo" class="site-logo">
+    </a>
+    <nav class="mainnav">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="advertising.html" class="active" data-i18n="nav.advertising">Advertising</a>
+      <a href="partners.html" data-i18n="nav.partners">Partners</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+        <button class="lang-opt is-active" data-lang="nl">NL</button>
+        <span class="lang-sep"></span>
+        <button class="lang-opt" data-lang="en">EN</button>
+      </div>
+      <a class="btn btn-yellow" href="contact.html"><span data-i18n="nav.cta_btn">Adverteren</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-nav">
+    <a href="index.html" data-i18n="nav.home">Home</a>
+    <a href="about.html" data-i18n="nav.about">About</a>
+    <a href="advertising.html" class="active" data-i18n="nav.advertising">Advertising</a>
+    <a href="partners.html" data-i18n="nav.partners">Partners</a>
+    <a href="contact.html" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="mobile-foot">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+      <button class="lang-opt is-active" data-lang="en">EN</button>
+      <span class="lang-sep"></span>
+      <button class="lang-opt" data-lang="de">DE</button>
+    </div>
+    <a class="btn btn-yellow" href="contact.html"><span data-i18n="nav.cta_btn">Adverteren</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span>/</span><span data-i18n="advertising.page_crumb">Adverteren</span></div>
+    <div class="kicker" data-i18n="advertising.page_kicker">Adverteren</div>
+    <h1><span data-i18n="advertising.hero_h1_line1">Adverteer waar Amsterdam</span><br><span class="y" data-i18n="advertising.hero_h1_highlight">beweegt</span></h1>
+    <p data-i18n="advertising.hero_sub">Bereik miljoenen reizigers op ooghoogte, in een premium momentje van volledige aandacht. Digitale schermen in taxi's door heel Nederland.</p>
+    <div class="ph-btns">
+      <a class="btn btn-yellow" href="contact.html" data-i18n="advertising.hero_btn1">Plan een campagne
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a class="btn btn-outline" href="#formats" data-i18n="advertising.hero_btn2">Bekijk formaten</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<div class="stats-bar">
+  <div class="wrap stats">
+    <div class="stat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polygon points="10 8 15 11 10 14" fill="currentColor" stroke="none"/></svg>
+      <div><div class="num">500+</div><div class="lab">Screens</div></div>
+    </div>
+    <div class="stat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg>
+      <div><div class="num">1.500+</div><div class="lab">Taxi's</div></div>
+    </div>
+    <div class="stat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div><div class="num">1,2M+</div><div class="lab">Bereik per week</div></div>
+    </div>
+    <div class="stat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+      <div><div class="num">2,5×</div><div class="lab">Hogere aandacht</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FORMATS ============ -->
+<section class="section light" id="formats">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker" data-i18n="advertising.formats_kicker">Onze formaten</div>
+      <h2 data-i18n="advertising.formats_h2">Drie manieren om op te vallen</h2>
+      <p data-i18n="advertising.formats_text">Van subtiele aanwezigheid tot een volledige merkbeleving — elk formaat is volledig digitaal, meetbaar en planbaar per doelgroep en stad.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polygon points="10 8 15 11 10 14" fill="currentColor" stroke="none"/></svg>
+        <h3 data-i18n="advertising.format1_title">Headrest Video</h3>
+        <p data-i18n="advertising.format1_text">Full-motion video op het hoofdsteunscherm, op ooghoogte tijdens de hele rit. Maximale impact en merkherinnering.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="13" height="16" rx="2"/><rect x="18" y="4" width="3" height="16" rx="1.5"/></svg>
+        <h3 data-i18n="advertising.format2_title">Companion Banner</h3>
+        <p data-i18n="advertising.format2_text">Een vaste merkbanner naast de video — met logo, QR-code of actie. Versterkt je boodschap en stuurt aan op conversie.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <h3 data-i18n="advertising.format3_title">Full Takeover</h3>
+        <p data-i18n="advertising.format3_text">Het volledige scherm, exclusief voor jouw merk. Domineer een stad, evenement of campagneperiode met 100% share of screen.</p>
+        <div class="rule"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY (dark split) ============ -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="split on-dark">
+      <div class="split-body">
+        <div class="kicker" data-i18n="advertising.why_kicker">Waarom taxi media</div>
+        <h2 data-i18n="advertising.why_h2">Een publiek dat écht kijkt</h2>
+        <p data-i18n="advertising.why_text">In de taxi is je merk niet één van vele prikkels — het is hét scherm in een rustige, premium omgeving. Geen scrollen, geen wegklikken.</p>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="advertising.why_tick1">2,5× langere kijktijd dan gemiddelde out-of-home media</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="advertising.why_tick2">Relevante doelgroep: reizigers, toeristen en zakelijke gasten</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="advertising.why_tick3">Targeting per stad, tijdslot en gebied</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="advertising.why_tick4">Realtime rapportage over bereik en vertoningen</span></li>
+        </ul>
+        <a class="btn btn-yellow" href="contact.html" data-i18n="advertising.why_btn">Vraag de mediakit aan
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="split-media">
+        <image-slot id="adv-why" shape="rect" fit="cover" placeholder="Reiziger kijkt naar headrest scherm"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section white">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker" data-i18n="advertising.process_kicker">Zo werkt het</div>
+      <h2 data-i18n="advertising.process_h2">Van briefing tot resultaat</h2>
+      <p data-i18n="advertising.process_text">In vier heldere stappen staat jouw campagne live in het grootste taxinetwerk van Nederland.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="st-n" data-i18n="advertising.step1_num">1</div>
+        <h3 data-i18n="advertising.step1_title">Strategie</h3>
+        <p data-i18n="advertising.step1_text">We bepalen samen doelgroep, steden en campagnedoelen op basis van jouw merk.</p>
+      </div>
+      <div class="step">
+        <div class="st-n" data-i18n="advertising.step2_num">2</div>
+        <h3 data-i18n="advertising.step2_title">Creatie</h3>
+        <p data-i18n="advertising.step2_text">Onze studio levert of optimaliseert video en banner, klaar voor het scherm.</p>
+      </div>
+      <div class="step">
+        <div class="st-n" data-i18n="advertising.step3_num">3</div>
+        <h3 data-i18n="advertising.step3_title">Live</h3>
+        <p data-i18n="advertising.step3_text">Je campagne wordt uitgerold over geselecteerde taxi's en tijdsloten.</p>
+      </div>
+      <div class="step">
+        <div class="st-n" data-i18n="advertising.step4_num">4</div>
+        <h3 data-i18n="advertising.step4_title">Rapportage</h3>
+        <p data-i18n="advertising.step4_text">Realtime inzicht in bereik, vertoningen en resultaat — transparant en meetbaar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker" data-i18n="advertising.faq_kicker">Veelgestelde vragen</div>
+      <h2 data-i18n="advertising.faq_h2">Goed om te weten</h2>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>Wat is de minimale campagneduur?<span class="pl"></span></summary>
+        <p>Campagnes starten vanaf één week. Voor merkcampagnes adviseren we doorgaans vier weken voor optimale herhaling en merkherinnering.</p>
+      </details>
+      <details>
+        <summary>Kan ik op specifieke steden targeten?<span class="pl"></span></summary>
+        <p>Ja. Je kiest per stad, gebied en tijdslot. Zo bereik je bijvoorbeeld alleen zakelijke reizigers rond Amsterdam Zuid tijdens kantooruren.</p>
+      </details>
+      <details>
+        <summary>Leveren jullie ook de creatie?<span class="pl"></span></summary>
+        <p>Onze studio kan je video en companion banner volledig produceren of bestaande assets optimaliseren voor het scherm — inclusief QR-codes.</p>
+      </details>
+      <details>
+        <summary>Hoe meet ik het resultaat?<span class="pl"></span></summary>
+        <p>Je ontvangt realtime rapportages over vertoningen, bereik en speelmomenten. QR-scans en kortingscodes maken conversie direct meetbaar.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <h2>Klaar om onderweg<br>jouw merk te laten groeien?</h2>
+        <p>Neem contact met ons op en ontdek de mogelijkheden voor jouw campagne.</p>
+        <div class="cta-btns">
+          <a class="btn btn-dark" href="contact.html">Plan een afspraak</a>
+          <a class="btn btn-outline-dark" href="contact.html">Download media kit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><path d="M5 21h14"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="cta-right">
+        <img src="assets/media-kit-tablet.png" alt="Taxi Media — Media Kit op tablet">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <a class="logo foot-logo" href="index.html">
+        <img src="/brand/header-logo.png" alt="Logo" class="site-logo" style="height:32px;">
+      </a>
+    </div>
+    <div class="foot-col">
+      <h4>Menu</h4>
+      <div class="foot-menu">
+        <a href="advertising.html">Adverteren</a>
+        <a href="about.html">Over ons</a>
+        <a href="partners.html">Partners</a>
+        <a href="index.html">Home</a>
+        <a href="advertising.html">Screens</a>
+        <a href="contact.html">Contact</a>
+        <a href="partners.html">Cases</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <div class="foot-contact">
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>020 123 45 67</span>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <span>info@taximedia.nl</span>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Barbara Strozzilaan 201<br>1083 HN Amsterdam</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Volg ons</h4>
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 18.34V9.9H5.67v8.44zM7 8.67a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1m11.34 9.67v-4.63c0-2.47-1.32-3.62-3.08-3.62a2.66 2.66 0 0 0-2.41 1.33V9.9h-2.67v8.44h2.67v-4.46c0-1.18.22-2.32 1.68-2.32s1.46 1.35 1.46 2.4v4.38z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.3C16.6.2 15.5 0 14.4 0 11.9 0 10.3 1.5 10.3 4.3V6H7.5v3h2.8v9H14z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.9 12 4.9 12 4.9s-7 0-8.9.5A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5M9.75 15.5v-7l6 3.5z"/></svg></a>
+      </div>
+      <div class="foot-brand" style="margin-top:26px;">
+        <div class="nm">TAXIMEDIA.NL</div>
+        <div class="cp">© 2024 Taxi Media<br>Alle rechten voorbehouden.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="/i18n.js"></script>
+<script src="/hero-bg.js"></script>
+</body>
+</html>
+
+
+
+

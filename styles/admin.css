@@ -1,0 +1,40 @@
+/* ============================================================
+   ADSCABS / TAXIMEDIA — Admin Design Tokens
+   Extends the global token set with admin-specific values.
+   Import AFTER tokens.css.
+   ============================================================ */
+
+:root {
+
+  /* ── Admin Surfaces ─────────────────────────────────────── */
+  --admin-topbar:   var(--bg-ink);          /* #141414 */
+  --admin-sidebar:  var(--bg-darker);       /* #111    */
+  --admin-main:     var(--bg-elevated);     /* #1a1a1a */
+  --admin-panel:    var(--bg-card-dark);    /* #202020 */
+  --admin-input:    var(--bg-input);        /* #181818 */
+
+  /* ── Admin Text ─────────────────────────────────────────── */
+  --admin-text:     var(--text-body-dark);  /* #e0e0e0 */
+  --admin-muted:    var(--text-muted-dark); /* #888    */
+  --admin-label:    var(--text-label);      /* #aaa    */
+
+  /* ── Admin Borders ──────────────────────────────────────── */
+  --admin-border:        var(--border-soft);         /* rgba(255,255,255,.09) */
+  --admin-border-focus:  rgba(235,94,40,.6);         /* brand orange focus — concrete to avoid circular ref */
+  --admin-border-hover:  var(--border-strong);       /* rgba(255,255,255,.22) */
+
+  /* ── Admin Accent ───────────────────────────────────────── */
+  --admin-accent:        var(--color-primary);
+  --admin-accent-light:  var(--color-primary-light);
+  --admin-accent-bg:     rgba(235,94,40,.07);
+
+  /* ── Admin Heights ──────────────────────────────────────── */
+  --admin-topbar-h: 58px;
+  --admin-savebar-h: 60px;
+}
+
+/* ── Admin Typography Row — colour-only variant ─────────── */
+/* (shared grid helpers for admin typography page)          */
+
+.typo-row-color-only { grid-template-columns: 1fr 44px; }
+.typo-row-no-color   { grid-template-columns: 1fr 108px 172px; }

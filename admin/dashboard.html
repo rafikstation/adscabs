@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdsCabs — Admin Dashboard</title>
+<link rel="stylesheet" href="/styles/tokens.css">
+<link rel="stylesheet" href="/styles/admin.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <a class="topbar-logo" href="/">
+    <span class="t">ADS</span><span class="m">CABS</span>
+  </a>
+  <span class="topbar-badge">Content Manager</span>
+  <div class="topbar-spacer"></div>
+  <a class="topbar-btn" href="/" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    View website
+  </a>
+  <button class="topbar-btn danger" id="logoutBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Logout
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Layout -->
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Pages</div>
+    <ul class="sidebar-nav" id="sidebarNav"></ul>
+  </aside>
+
+  <!-- Main -->
+  <div class="main" id="mainArea">
+    <div class="state-msg" id="loadingMsg">Loading content…</div>
+  </div>
+</div>
+
+<!-- Save bar -->
+<div class="save-bar">
+  <button class="save-btn" id="saveBtn" disabled>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+    Save changes
+  </button>
+  <span class="save-status" id="saveStatus">Select a page to edit</span>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

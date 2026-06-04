@@ -1,0 +1,15 @@
+{
+  "--color-primary": "#EB5E28",
+  "--color-primary-hover": "#d4541f",
+  "--color-accent": "#d4541f",
+  "--bg-dark": "#0c0c0c",
+  "--bg-ink": "#141414",
+  "--bg-panel": "#171717",
+  "--bg-elevated": "#1a1a1a",
+  "--bg-light": "#f3f3f3",
+  "--text-primary": "#161616",
+  "--text-secondary": "#6f6f6f",
+  "--text-light": "#cfcfcf",
+  "--color-success": "#4caf50",
+  "--color-error": "#ff5252"
+}

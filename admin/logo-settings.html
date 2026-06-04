@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Instellingen — Taxi Media Admin</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;background:#1a1a1a;color:#e0e0e0;
+  min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;}
+
+/* ── Topbar ───────────────────────────────────────────── */
+.topbar{background:#141414;border-bottom:1px solid rgba(255,255,255,.09);height:58px;
+  display:flex;align-items:center;padding:0 24px;gap:16px;position:sticky;top:0;z-index:100;flex:none;}
+.topbar-logo{display:inline-flex;align-items:stretch;font-weight:900;
+  border:2px solid #F7B500;line-height:1;text-decoration:none;}
+.topbar-logo .t{background:#F7B500;color:#0c0c0c;padding:3px 6px;font-size:14px;}
+.topbar-logo .m{color:#fff;padding:3px 7px;font-size:14px;}
+.topbar-badge{color:#888;font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.topbar-spacer{flex:1;}
+.topbar-btn{display:inline-flex;align-items:center;gap:7px;background:none;
+  border:1px solid rgba(255,255,255,.09);color:#888;font-family:inherit;font-size:13px;
+  padding:7px 14px;border-radius:5px;cursor:pointer;text-decoration:none;transition:color .15s,border-color .15s;}
+.topbar-btn:hover{color:#e0e0e0;border-color:rgba(255,255,255,.22);}
+.topbar-btn svg{width:14px;height:14px;flex:none;}
+
+/* ── Page wrapper ─────────────────────────────────────── */
+.ls-wrap{flex:1;padding:32px;max-width:760px;overflow-y:auto;}
+.ls-page-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:4px;}
+.ls-page-sub{font-size:13px;color:#888;margin-bottom:28px;}
+
+/* ── Card ─────────────────────────────────────────────── */
+.ls-card{background:#202020;border:1px solid rgba(255,255,255,.09);border-radius:10px;
+  padding:24px;margin-bottom:18px;}
+.ls-card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;}
+.ls-card-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px;}
+.ls-card-sub{font-size:12.5px;color:#888;}
+.ls-badge{font-size:11px;font-weight:600;color:#888;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:4px 10px;white-space:nowrap;flex:none;}
+
+/* ── Upload grid ──────────────────────────────────────── */
+.ls-upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ls-col-label{font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:#666;margin-bottom:10px;}
+
+.ls-current-box{background:#141414;border:1px solid rgba(255,255,255,.08);border-radius:7px;
+  height:130px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;}
+.ls-current-box img{max-height:64px;max-width:80%;object-fit:contain;display:block;}
+.ls-no-logo{color:#444;font-size:12px;text-align:center;line-height:1.6;}
+.ls-delete-btn{position:absolute;top:8px;right:8px;background:rgba(255,82,82,.85);color:#fff;
+  border:none;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:600;
+  cursor:pointer;opacity:0;transition:opacity .15s;font-family:inherit;}
+.ls-current-box:hover .ls-delete-btn{opacity:1;}
+
+.ls-upload-zone{background:#141414;border:1.5px dashed rgba(255,255,255,.18);border-radius:7px;
+  height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;cursor:pointer;transition:border-color .2s,background .2s;text-align:center;padding:16px;}
+.ls-upload-zone:hover,.ls-upload-zone.drag-over{border-color:rgba(235,94,40,.6);background:rgba(235,94,40,.05);}
+.ls-upload-zone svg{color:#555;}
+.ls-uz-main{color:#ccc;font-size:13px;font-weight:500;}
+.ls-uz-sub{color:#555;font-size:11px;line-height:1.5;}
+
+/* ── Size controls ────────────────────────────────────── */
+.ls-size-row{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+.ls-size-label{font-size:10px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:#666;width:68px;flex:none;}
+.ls-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;
+  background:linear-gradient(to right,#EB5E28 0%,#EB5E28 var(--pct,22.5%),
+  rgba(255,255,255,.12) var(--pct,22.5%),rgba(255,255,255,.12) 100%);
+  outline:none;cursor:pointer;}
+.ls-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;
+  border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.5);cursor:pointer;}
+.ls-slider::-moz-range-thumb{width:16px;height:16px;border:none;border-radius:50%;
+  background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.5);cursor:pointer;}
+.ls-size-num-wrap{display:flex;align-items:center;gap:6px;}
+.ls-size-num{width:58px;font-family:inherit;font-size:13px;font-weight:700;color:#fff;
+  text-align:right;background:#141414;border:1px solid rgba(255,255,255,.12);
+  border-radius:5px;padding:6px 8px;outline:none;transition:border-color .15s;}
+.ls-size-num:focus{border-color:rgba(235,94,40,.5);}
+.ls-size-unit{font-size:12px;color:#555;}
+.ls-size-range{display:flex;justify-content:space-between;font-size:10px;color:#444;
+  margin-bottom:20px;padding:4px 1px 0;}
+.ls-size-hint{font-size:11.5px;color:#555;margin-top:6px;}
+.ls-size-hint b{color:#888;}
+
+/* ── Save button ──────────────────────────────────────── */
+.ls-save-btn{width:100%;padding:13px 0;border:none;border-radius:7px;
+  background:#EB5E28;color:#fff;font-family:inherit;font-size:14px;font-weight:700;
+  cursor:pointer;transition:background .15s,transform .1s;margin-top:4px;}
+.ls-save-btn:hover{background:#d4541f;transform:translateY(-1px);}
+.ls-save-btn:active{transform:none;}
+.ls-save-btn:disabled{opacity:.6;cursor:default;transform:none;}
+
+/* ── Toast ────────────────────────────────────────────── */
+.ls-toast{position:fixed;top:70px;right:24px;z-index:9999;padding:11px 18px;
+  border-radius:7px;font-size:13.5px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.5);
+  transform:translateY(-6px);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;}
+.ls-toast.show{opacity:1;transform:translateY(0);}
+.ls-toast.ok{background:#1a3d1a;border:1px solid #4caf50;color:#7fde7f;}
+.ls-toast.err{background:#3d1a1a;border:1px solid #ff5252;color:#ff8989;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-logo" href="/">
+    <span class="t">TAXI</span><span class="m">MEDIA</span>
+  </a>
+  <span class="topbar-badge">Logo Instellingen</span>
+  <div class="topbar-spacer"></div>
+  <a class="topbar-btn" href="/admin/dashboard.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Dashboard
+  </a>
+  <a class="topbar-btn" href="/" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    Website
+  </a>
+</div>
+
+<div class="ls-toast" id="toast"></div>
+
+<div class="ls-wrap">
+  <div class="ls-page-title">Logo &amp; Titel</div>
+  <div class="ls-page-sub">Beheer het logo en de naam van de website.</div>
+
+  <!-- Website Logo -->
+  <div class="ls-card">
+    <div class="ls-card-head">
+      <div>
+        <div class="ls-card-title">Website Logo</div>
+        <div class="ls-card-sub">Wordt getoond in de navigatiebalk</div>
+      </div>
+      <div class="ls-badge">PNG · SVG · max 2 MB</div>
+    </div>
+    <div class="ls-upload-grid">
+      <div>
+        <div class="ls-col-label">Huidig Logo</div>
+        <div class="ls-current-box" id="currentBox">
+          <img id="currentImg" src="" alt="" style="display:none;">
+          <div class="ls-no-logo" id="noLogoMsg">Geen logo<br>ingesteld</div>
+          <button class="ls-delete-btn" id="deleteBtn" type="button" style="display:none;">✕ Verwijder</button>
+        </div>
+      </div>
+      <div>
+        <div class="ls-col-label">Nieuw Uploaden</div>
+        <div class="ls-upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept="image/png,image/svg+xml,image/webp" hidden>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <div class="ls-uz-main" id="uzMain">Klik om logo te uploaden</div>
+          <div class="ls-uz-sub">PNG of SVG aanbevolen<br>transparante achtergrond</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo Afmetingen -->
+  <div class="ls-card">
+    <div class="ls-card-head">
+      <div>
+        <div class="ls-card-title">Logo Afmetingen</div>
+        <div class="ls-card-sub">Breedte en hoogte van het logo in de navigatiebalk (px)</div>
+      </div>
+    </div>
+
+    <div class="ls-size-row">
+      <div class="ls-size-label">Breedte</div>
+      <input type="range"  class="ls-slider" id="widthSlider" min="40" max="400" value="130">
+      <div class="ls-size-num-wrap">
+        <input type="number" class="ls-size-num" id="widthNum" min="40" max="400" value="130">
+        <span class="ls-size-unit">px</span>
+      </div>
+    </div>
+    <div class="ls-size-range"><span>40</span><span>400</span></div>
+
+    <div class="ls-size-row">
+      <div class="ls-size-label">Hoogte</div>
+      <input type="range"  class="ls-slider" id="heightSlider" min="16" max="100" value="36">
+      <div class="ls-size-num-wrap">
+        <input type="number" class="ls-size-num" id="heightNum" min="16" max="100" value="36">
+        <span class="ls-size-unit">px</span>
+      </div>
+    </div>
+    <div class="ls-size-range"><span>16</span><span>100</span></div>
+
+    <div class="ls-size-hint">Standaard: <b>130 × 36 px</b></div>
+  </div>
+
+  <button class="ls-save-btn" id="saveBtn" type="button">Opslaan</button>
+</div>
+
+<script>
+/* ── Toast ──────────────────────────────────────────── */
+function toast(msg, type) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'ls-toast ' + (type === 'err' ? 'err' : 'ok');
+  el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 3000);
+}
+
+/* ── State ──────────────────────────────────────────── */
+var state = { src: null, width: 130, height: 36 };
+
+/* ── Slider fill ────────────────────────────────────── */
+function updateFill(slider) {
+  var min = +slider.min, max = +slider.max, val = +slider.value;
+  slider.style.setProperty('--pct', ((val - min) / (max - min) * 100).toFixed(1) + '%');
+}
+
+function linkSlider(sId, nId, key, min, max) {
+  var s = document.getElementById(sId), n = document.getElementById(nId);
+  function set(v) {
+    v = Math.max(min, Math.min(max, parseInt(v) || min));
+    state[key] = v; s.value = v; n.value = v; updateFill(s);
+  }
+  s.addEventListener('input', function(){ set(this.value); });
+  n.addEventListener('change', function(){ set(this.value); });
+  updateFill(s);
+}
+linkSlider('widthSlider',  'widthNum',  'width',  40, 400);
+linkSlider('heightSlider', 'heightNum', 'height', 16, 100);
+
+/* ── Current logo ───────────────────────────────────── */
+function showLogo(src) {
+  var img = document.getElementById('currentImg');
+  var msg = document.getElementById('noLogoMsg');
+  var del = document.getElementById('deleteBtn');
+  if (src) {
+    img.src = src + '?t=' + Date.now();
+    img.style.display = 'block';
+    msg.style.display = 'none';
+    del.style.display = '';
+    state.src = src;
+  } else {
+    img.style.display = 'none';
+    msg.style.display = '';
+    del.style.display = 'none';
+    state.src = null;
+  }
+}
+
+/* ── Upload ─────────────────────────────────────────── */
+function fileToDataUrl(file) {
+  return new Promise(function(res, rej){
+    var r = new FileReader();
+    r.onerror = rej;
+    r.onload = function(){ res(r.result); };
+    r.readAsDataURL(file);
+  });
+}
+
+async function uploadFile(file) {
+  if (!file || !file.type.startsWith('image/')) { toast('Kies een afbeelding', 'err'); return; }
+  if (file.size > 2 * 1024 * 1024) { toast('Max 2 MB', 'err'); return; }
+  document.getElementById('uzMain').textContent = 'Uploaden…';
+  try {
+    var dataUrl = await fileToDataUrl(file);
+    var resp = await fetch('/api/admin/logo-upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: dataUrl })
+    });
+    var json = await resp.json();
+    if (!resp.ok) throw new Error(json.error || resp.status);
+    showLogo(json.url);
+    toast('Logo geüpload!');
+  } catch(e) { toast('Upload mislukt: ' + e.message, 'err'); }
+  document.getElementById('uzMain').textContent = 'Klik om logo te uploaden';
+  document.getElementById('fileInput').value = '';
+}
+
+/* Click / drag */
+document.getElementById('uploadZone').addEventListener('click', function(){
+  document.getElementById('fileInput').click();
+});
+document.getElementById('fileInput').addEventListener('change', function(){
+  if (this.files[0]) uploadFile(this.files[0]);
+});
+var zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover',  function(e){ e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', function(){ zone.classList.remove('drag-over'); });
+zone.addEventListener('drop', function(e){
+  e.preventDefault(); zone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) uploadFile(e.dataTransfer.files[0]);
+});
+
+/* ── Delete ─────────────────────────────────────────── */
+document.getElementById('deleteBtn').addEventListener('click', async function(e){
+  e.stopPropagation();
+  try {
+    var r = await fetch('/api/admin/logo-upload', {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json' }
+    });
+    if (!r.ok) throw new Error('Mislukt');
+    showLogo(null); toast('Logo verwijderd');
+  } catch(e) { toast(e.message, 'err'); }
+});
+
+/* ── Save ───────────────────────────────────────────── */
+document.getElementById('saveBtn').addEventListener('click', async function(){
+  var btn = this;
+  btn.textContent = 'Opslaan…'; btn.disabled = true;
+  try {
+    var r = await fetch('/api/admin/logo-settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ width: state.width, height: state.height })
+    });
+    if (!r.ok) throw new Error('Opslaan mislukt');
+    toast('Opgeslagen!');
+  } catch(e) { toast(e.message, 'err'); }
+  btn.textContent = 'Opslaan'; btn.disabled = false;
+});
+
+/* ── Load on mount ──────────────────────────────────── */
+fetch('/api/logo-settings')
+  .then(function(r){ return r.ok ? r.json() : null; })
+  .then(function(s){
+    if (!s) return;
+    if (s.src) showLogo(s.src);
+    if (s.width)  { state.width  = s.width;  document.getElementById('widthSlider').value  = s.width;  document.getElementById('widthNum').value  = s.width;  updateFill(document.getElementById('widthSlider')); }
+    if (s.height) { state.height = s.height; document.getElementById('heightSlider').value = s.height; document.getElementById('heightNum').value = s.height; updateFill(document.getElementById('heightSlider')); }
+  }).catch(function(){});
+</script>
+</body>
+</html>
