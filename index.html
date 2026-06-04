@@ -773,10 +773,14 @@
     var hero = document.querySelector('.hero');
     var sub  = document.querySelector('.hero-sub');
     var btns = document.querySelector('.hero-btns');
+    var wrap = document.querySelector('.hero>.wrap');
     if(!hero || !sub || !btns) return;
-    var heroTop = hero.getBoundingClientRect().top;
+    var heroTop   = hero.getBoundingClientRect().top;
     var subBottom = sub.getBoundingClientRect().bottom;
-    btns.style.top = (subBottom - heroTop + 20) + 'px';
+    var btnTop    = subBottom - heroTop + 20;
+    btns.style.top = btnTop + 'px';
+    // Push wrap height so stats clears button bottom + 20px gap
+    if(wrap) wrap.style.minHeight = (btnTop + btns.offsetHeight + 20) + 'px';
   }
   window.addEventListener('load', positionHeroBtns);
   window.addEventListener('resize', positionHeroBtns);
