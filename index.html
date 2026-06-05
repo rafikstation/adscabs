@@ -198,6 +198,8 @@
   .sec-h{font-weight:900;font-size:40px;line-height:1.05;letter-spacing:-.5px;}
   .sec-h .y{color:var(--yellow);}
   .reach-text{color:var(--txt-mid);font-size:15px;line-height:1.65;margin:22px 0 28px;max-width:330px;}
+  .reach-btns{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .reach-btns .btn{width:100%;justify-content:center;}
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
   .card{background:var(--card);padding:30px 26px 34px;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.05);position:relative;}
   .card .ico{width:30px;height:30px;color:#1c1c1c;margin-bottom:46px;}
@@ -346,9 +348,9 @@
       font-size:clamp(10px,2.5vw,15px);line-height:1.45;text-align:left;color:#ededed;
       text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.7);}
     /* Buttons below the image, stats below the buttons — all in normal flow */
-    .hero-btns{position:absolute;left:50%;transform:translateX(-50%);
-      z-index:6;flex-direction:column;align-items:stretch;gap:8px;
-      width:90vw;max-width:90vw;margin:0;}
+    .hero-btns{position:static;transform:none;
+      flex-direction:column;align-items:stretch;gap:8px;
+      width:90vw;max-width:90vw;margin:16px 0 0;align-self:center;}
     .hero-btns .btn{width:100%;justify-content:center;}
 
     /* Stats bar: in flow after buttons, same orange tint as desktop */
@@ -373,7 +375,7 @@
 
     /* brands: centered one-line label + slow left-scrolling logo marquee
        (padding balanced so the logo row sits at the section's vertical center) */
-    .brands{overflow:hidden;padding:12px 0 37px;border-top:1px solid rgba(255,255,255,.12);}
+    .brands{overflow:hidden;padding:12px 0 37px;border-top:1px solid rgba(255,255,255,.12);margin-top:10px;}
     .brands-inner{flex-direction:column;align-items:flex-start;gap:10px;padding-left:22px;padding-right:22px;}
     .brands-label{max-width:none;white-space:nowrap;text-align:left;align-self:flex-start;}
     .brands-logos{flex-wrap:nowrap;width:max-content;align-self:flex-start;align-items:center;gap:10px;
@@ -384,6 +386,8 @@
     .reach{padding:54px 0;}
     .reach-grid{gap:36px;}
     .reach-text{max-width:none;}
+    .reach-btns{align-items:stretch;}
+    .reach-btns .btn{width:100%;justify-content:center;}
     .cards{grid-template-columns:1fr;}
 
     .net-left{padding:54px 0;}
@@ -590,9 +594,11 @@
     <div>
       <h2 class="sec-h"><span data-i18n="home.reach_h2_line1">Why Taxi</span><br><span class="y" data-i18n="home.reach_h2_line2">Advertising?</span></h2>
       <p class="reach-text" data-i18n="home.reach_text">Taxi media combines mobility, visibility and engagement in one powerful advertising channel.</p>
-      <button class="btn btn-dark" data-i18n="home.reach_btn">Learn More
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
+      <div class="reach-btns">
+        <button class="btn btn-dark" data-i18n="home.reach_btn">Learn More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
     </div>
     <div class="cards">
       <div class="card">
@@ -769,18 +775,10 @@
 // Mobile: position hero buttons 10px below the actual bottom of the subtitle text
 (function(){
   function positionHeroBtns(){
+    // Buttons are in normal flow on mobile — no absolute positioning needed
     if(window.innerWidth > 900) return;
-    var hero = document.querySelector('.hero');
-    var sub  = document.querySelector('.hero-sub');
-    var btns = document.querySelector('.hero-btns');
     var wrap = document.querySelector('.hero>.wrap');
-    if(!hero || !sub || !btns) return;
-    var heroTop   = hero.getBoundingClientRect().top;
-    var subBottom = sub.getBoundingClientRect().bottom;
-    var btnTop    = subBottom - heroTop + 20;
-    btns.style.top = btnTop + 'px';
-    // Push wrap height so stats clears button bottom + 20px gap
-    if(wrap) wrap.style.minHeight = (btnTop + btns.offsetHeight + 20) + 'px';
+    if(wrap) wrap.style.minHeight = '';
   }
   window.addEventListener('load', positionHeroBtns);
   window.addEventListener('resize', positionHeroBtns);
