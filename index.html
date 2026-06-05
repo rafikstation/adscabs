@@ -787,18 +787,21 @@
   setTimeout(positionHeroBtns, 300);
 })();
 
-// Apply logo size/src from admin settings
+// Apply logo — sync from cache first, then refresh from API
 (function(){
-  fetch('/api/logo-settings')
-    .then(function(r){ return r.ok ? r.json() : null; })
-    .then(function(s){
-      if (!s) return;
-      document.querySelectorAll('.site-logo').forEach(function(img){
-        if (s.src)    img.src          = s.src + '?v=' + Date.now();
-        if (s.width)  img.style.width  = s.width  + 'px';
-        if (s.height) img.style.height = s.height + 'px';
-      });
-    }).catch(function(){});
+  try {
+    var cs=localStorage.getItem('site_logo_src'),cw=localStorage.getItem('site_logo_w'),ch=localStorage.getItem('site_logo_h');
+    if(cs) document.querySelectorAll('.site-logo').forEach(function(img){
+      img.src=cs; if(cw) img.style.width=cw+'px'; if(ch) img.style.height=ch+'px';
+    });
+  } catch(e){}
+  fetch('/api/logo-settings').then(function(r){return r.ok?r.json():null;}).then(function(s){
+    if(!s) return;
+    document.querySelectorAll('.site-logo').forEach(function(img){
+      if(s.src) img.src=s.src; if(s.width) img.style.width=s.width+'px'; if(s.height) img.style.height=s.height+'px';
+    });
+    try{if(s.src) localStorage.setItem('site_logo_src',s.src); if(s.width) localStorage.setItem('site_logo_w',s.width); if(s.height) localStorage.setItem('site_logo_h',s.height);}catch(e){}
+  }).catch(function(){});
 })();
 
 // Load admin-uploaded images for the network and CTA sections
@@ -880,6 +883,8 @@
      applyWarp uses these instead of hardcoded 1600×1066, so it works with
      any background image uploaded via the admin.                            */
   // Exposed on window so imgRect() (zone editor) and applyWarp() always share the same value
+  // Seed from localStorage cache so first applyWarp uses correct dimensions immediately
+  try { var _bgCache=JSON.parse(localStorage.getItem('hero_bg_dims')||'{}'); if(_bgCache.w&&_bgCache.h){window._bgW=_bgCache.w;window._bgH=_bgCache.h;} } catch(e){}
   window._bgW = window._bgW || 1600;
   window._bgH = window._bgH || 1066;
   var _bgW = window._bgW, _bgH = window._bgH; // local aliases
@@ -896,6 +901,7 @@
       if (probe.naturalWidth > 0 && probe.naturalHeight > 0) {
         _bgW = window._bgW = probe.naturalWidth;
         _bgH = window._bgH = probe.naturalHeight;
+        try{localStorage.setItem('hero_bg_dims',JSON.stringify({w:probe.naturalWidth,h:probe.naturalHeight}));}catch(e){}
         // update mobile CSS padding-bottom to match new aspect ratio
         var pct = (_bgH / _bgW * 100).toFixed(3) + '%';
         try {

@@ -1,16 +1,35 @@
 /* TAXIMEDIA — navbar logo + hamburger + language toggle */
 
-/* Apply logo size from admin settings */
+/* Apply logo — cached values applied synchronously first (no flash),
+   then refreshed from API and cache updated for next visit.          */
 (function(){
+  // Step 1: apply cached logo instantly — no network, no flash
+  try {
+    var cs = localStorage.getItem('site_logo_src');
+    var cw = localStorage.getItem('site_logo_w');
+    var ch = localStorage.getItem('site_logo_h');
+    if (cs) document.querySelectorAll('.site-logo').forEach(function(img){
+      img.src = cs;
+      if (cw) img.style.width  = cw + 'px';
+      if (ch) img.style.height = ch + 'px';
+    });
+  } catch(e) {}
+
+  // Step 2: refresh from API and update cache for future visits
   fetch('/api/logo-settings')
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(function(s){
       if (!s) return;
       document.querySelectorAll('.site-logo').forEach(function(img){
-        if (s.src)    img.src          = s.src + '?v=' + Date.now();
+        if (s.src)    img.src          = s.src;
         if (s.width)  img.style.width  = s.width  + 'px';
         if (s.height) img.style.height = s.height + 'px';
       });
+      try {
+        if (s.src)    localStorage.setItem('site_logo_src', s.src);
+        if (s.width)  localStorage.setItem('site_logo_w',   s.width);
+        if (s.height) localStorage.setItem('site_logo_h',   s.height);
+      } catch(e) {}
     }).catch(function(){});
 })();
 
