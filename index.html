@@ -757,20 +757,31 @@
 })();
 
 
-// Apply admin-uploaded hero background image
+// Apply admin-uploaded hero background image, then detect dimensions and trigger warp.
+// This is the ONLY place detectBgSize is called — guaranteeing applyWarp always uses
+// the final background (custom or default), not the CSS default that loads first.
 (function(){
-  fetch('/api/hero-bg').then(function(r){ return r.ok ? r.json() : null; }).then(function(bgs){
-    if (!bgs || !bgs.home) return;
-    var entry = bgs.home;
-    var src = typeof entry === 'string' ? entry : (entry.img || null);
-    if (!src) return;
-    var el = document.querySelector('.hero-bg');
-    if (el) {
-      el.style.backgroundImage = 'url(' + src + ')';
-      // Re-detect dimensions for new image so applyWarp stays accurate
-      if (window.detectBgSize) window.detectBgSize(function(){ if(window._taxiWarp) window._taxiWarp(); });
+  function afterBgSet() {
+    if (window.detectBgSize) {
+      window.detectBgSize(function(){
+        window._bgDone = true;
+        if (window._tryWarp) window._tryWarp();
+      });
     }
-  }).catch(function(){});
+  }
+  fetch('/api/hero-bg').then(function(r){ return r.ok ? r.json() : null; }).then(function(bgs){
+    var src = null;
+    if (bgs && bgs.home) {
+      var entry = bgs.home;
+      src = typeof entry === 'string' ? entry : (entry.img || null);
+    }
+    if (src) {
+      var el = document.querySelector('.hero-bg');
+      if (el) el.style.backgroundImage = 'url(' + src + ')';
+    }
+    // Whether or not a custom bg was applied, now detect and warp
+    afterBgSet();
+  }).catch(function(){ afterBgSet(); });
 })();
 
 // Mobile: position hero buttons 10px below the actual bottom of the subtitle text
@@ -926,8 +937,7 @@
     probe.src = m[1];
   }
 
-  window.detectBgSize = detectBgSize; // expose for admin-bg loader
-  detectBgSize(function() { /* dimensions ready */ });
+  window.detectBgSize = detectBgSize; // triggered by admin-bg loader after final bg is set
 
   // --- Perspective warp: map the warp surface onto the monitor's glass quad ---
   var warp = document.getElementById('tvWarp');
@@ -1068,19 +1078,18 @@
   window._taxiWarp = applyWarp;
   window.addEventListener('resize', applyWarp);
 
-  // Two async tasks must BOTH finish before applyWarp gives correct results:
-  //   1. detectBgSize  — knows real image dimensions
-  //   2. screen-zones fetch — knows saved zone coordinates
-  // We wait for both before calling applyWarp the first time.
-  var _bgDone = false, _zonesDone = false;
-  function tryWarp(){ if(_bgDone && _zonesDone) applyWarp(); }
-
-  detectBgSize(function(){ _bgDone = true; tryWarp(); });
+  // applyWarp needs both: (1) correct bg dimensions and (2) zone coordinates.
+  // _bgDone is set by the admin-bg loader (after the final background is applied).
+  // _zonesDone is set when the zones fetch returns.
+  // Neither fires applyWarp until both are ready.
+  window._bgDone = false;
+  var _zonesDone = false;
+  window._tryWarp = function(){ if(window._bgDone && _zonesDone) applyWarp(); };
 
   fetch('/api/screen-zones').then(function(r){ return r.ok ? r.json() : null; }).then(function(z){
     if(z) window._screenZones = z;
-    _zonesDone = true; tryWarp();
-  }).catch(function(){ _zonesDone = true; tryWarp(); });
+    _zonesDone = true; window._tryWarp();
+  }).catch(function(){ _zonesDone = true; window._tryWarp(); });
 
   // ===== Playlist: each video plays with its paired banner image on the right =====
   // Files in assets/: 1.mp4 … 5.mp4 (videos), 2.png … 5.png (banners).
