@@ -1066,13 +1066,21 @@
     warp.style.transform='matrix3d('+m2.join(',')+')';
   }
   window._taxiWarp = applyWarp;
-  // Detect real image dimensions first, then warp
-  detectBgSize(function(){ applyWarp(); });
   window.addEventListener('resize', applyWarp);
-  // Load saved screen zones and re-apply warp
+
+  // Two async tasks must BOTH finish before applyWarp gives correct results:
+  //   1. detectBgSize  — knows real image dimensions
+  //   2. screen-zones fetch — knows saved zone coordinates
+  // We wait for both before calling applyWarp the first time.
+  var _bgDone = false, _zonesDone = false;
+  function tryWarp(){ if(_bgDone && _zonesDone) applyWarp(); }
+
+  detectBgSize(function(){ _bgDone = true; tryWarp(); });
+
   fetch('/api/screen-zones').then(function(r){ return r.ok ? r.json() : null; }).then(function(z){
-    if(z){ window._screenZones = z; applyWarp(); }
-  }).catch(function(){});
+    if(z) window._screenZones = z;
+    _zonesDone = true; tryWarp();
+  }).catch(function(){ _zonesDone = true; tryWarp(); });
 
   // ===== Playlist: each video plays with its paired banner image on the right =====
   // Files in assets/: 1.mp4 … 5.mp4 (videos), 2.png … 5.png (banners).
