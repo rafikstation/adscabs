@@ -55,12 +55,13 @@
   .btn-outline-dark{background:transparent;color:#0c0c0c;border:1.5px solid rgba(0,0,0,.35);}
   .btn-outline-dark:hover{border-color:#0c0c0c;}
   .nav-right{display:flex;align-items:center;gap:18px;}
-  .lang-toggle{display:flex;align-items:center;gap:8px;color:#cfcfcf;}
-  .lang-globe{width:16px;height:16px;color:#9a9a9a;flex:none;}
-  .lang-opt{background:none;border:none;cursor:pointer;color:#9a9a9a;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.5px;padding:2px 1px;transition:color .15s;}
+  /* Language toggle — pill switch */
+  .lang-toggle{display:inline-flex;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:3px;gap:2px;flex:none;}
+  .lang-globe{display:none;}
+  .lang-sep{display:none;}
+  .lang-opt{background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.5px;padding:5px 11px;border-radius:100px;transition:background .2s,color .2s;line-height:1;}
   .lang-opt:hover{color:#fff;}
-  .lang-opt.is-active{color:var(--color-primary);}
-  .lang-sep{width:1px;height:13px;background:rgba(255,255,255,.2);}
+  .lang-opt.is-active{background:var(--color-primary);color:#fff;}
   /* hamburger + mobile menu (hidden on desktop) */
   .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;
     background:none;border:none;cursor:pointer;padding:0;flex:none;}
@@ -318,6 +319,8 @@
     .nav-right{display:none;}
     .nav-toggle{display:flex;}
     .mobile-menu{display:block;}
+    /* Lang toggle stays visible next to hamburger on mobile */
+    .lang-toggle{display:inline-flex;}
 
     .hero-grid,.network,.reach-grid,.foot-grid,.cta-inner{grid-template-columns:1fr;}
     .cta-right{margin-top:34px;}
@@ -461,13 +464,11 @@
       <a href="partners.html" data-i18n="nav.partners">Partners</a>
       <a href="contact.html" data-i18n="nav.contact">Contact</a>
     </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-opt is-active" data-lang="nl">NL</button>
+      <button class="lang-opt" data-lang="en">EN</button>
+    </div>
     <div class="nav-right">
-      <div class="lang-toggle" role="group" aria-label="Language">
-        <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
-        <button class="lang-opt is-active" data-lang="nl">NL</button>
-        <span class="lang-sep"></span>
-        <button class="lang-opt" data-lang="en">EN</button>
-      </div>
       <a class="btn btn-yellow" href="advertising.html"><span data-i18n="nav.cta_btn">Adverteren</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
