@@ -1,0 +1,41 @@
+/* ============================================================
+   ADSCABS — Design System Entry Point
+   Import this single file to get all tokens + components.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap');
+@import url('./tokens.css');
+@import url('./components.css');
+
+/* ── Global resets that depend on tokens ─────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: var(--leading-normal);
+}
+
+img  { display: block; max-width: 100%; }
+a    { text-decoration: none; color: inherit; }
+
+/* ── Focus-visible ring (accessibility) ──────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ── Icon colour inheritance ─────────────────────────────── */
+
+svg { color: inherit; }
+
+/* ── Scrollbar (dark theme pages) ───────────────────────── */
+
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.28); }

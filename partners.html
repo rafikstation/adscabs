@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partners — AdsCabs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/design-system.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="/typography-overrides.css">
+<link rel="stylesheet" href="/design-tokens.css">
+<script src="image-slot.js"></script>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/">
+      <img src="/brand/header-logo.png" alt="Logo" class="site-logo">
+    </a>
+    <nav class="mainnav">
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/about" data-i18n="nav.about">About</a>
+      <a href="/advertising" data-i18n="nav.advertising">Advertising</a>
+      <a href="/partners" class="active" data-i18n="nav.partners">Partners</a>
+      <a href="/contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-opt is-active" data-lang="nl">NL</button>
+      <button class="lang-opt" data-lang="en">EN</button>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-yellow" href="/contact"><span data-i18n="nav.cta_btn">Adverteren</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-nav">
+    <a href="/" data-i18n="nav.home">Home</a>
+    <a href="/about" data-i18n="nav.about">About</a>
+    <a href="/advertising" data-i18n="nav.advertising">Advertising</a>
+    <a href="/partners" class="active" data-i18n="nav.partners">Partners</a>
+    <a href="/contact" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="mobile-foot">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+      <button class="lang-opt is-active" data-lang="en">EN</button>
+      <span class="lang-sep"></span>
+      <button class="lang-opt" data-lang="de">DE</button>
+    </div>
+    <a class="btn btn-yellow" href="/contact"><span data-i18n="nav.cta_btn">Adverteren</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="/">Home</a><span>/</span><span data-i18n="partners.page_crumb">Partners</span></div>
+    <div class="kicker" data-i18n="partners.page_kicker">Partners</div>
+    <h1><span data-i18n="partners.hero_h1_line1">Samen bereiken we</span><br><span class="y" data-i18n="partners.hero_h1_highlight">meer</span></h1>
+    <p data-i18n="partners.hero_sub">Van toonaangevende merken tot taxi-ondernemers en mediabureaus — ons netwerk groeit dankzij sterke partnerschappen door heel Nederland.</p>
+    <div class="ph-btns">
+      <a class="btn btn-yellow" href="/contact" data-i18n="partners.hero_btn1">Word partner
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a class="btn btn-outline" href="#brands" data-i18n="partners.hero_btn2">Bekijk merken</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNER TYPES ============ -->
+<section class="section light">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker" data-i18n="partners.types_kicker">Voor wie</div>
+      <h2 data-i18n="partners.types_h2">Drie soorten partnerschappen</h2>
+      <p data-i18n="partners.types_text">Ieder met een eigen rol in het netwerk — en een gedeeld doel: de juiste boodschap op het juiste moment, onderweg.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="13" y="7" width="3" height="10"/></svg>
+        <h3 data-i18n="partners.type1_title">Adverteerders</h3>
+        <p data-i18n="partners.type1_text">Merken die hun publiek willen bereiken in een premium, aandachtsvolle omgeving — landelijk of per stad.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3v-5l2-5h14l2 5v5h-2"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="16.5" cy="17.5" r="1.8"/></svg>
+        <h3 data-i18n="partners.type2_title">Taxi-ondernemers</h3>
+        <p data-i18n="partners.type2_text">Chauffeurs en vloten die meeverdienen aan elk scherm — zonder gedoe, met een vaste maandelijkse vergoeding.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+        <h3 data-i18n="partners.type3_title">Mediabureaus</h3>
+        <p data-i18n="partners.type3_text">Bureaus die taxi media naadloos toevoegen aan hun OOH-mix, met transparante data en eenvoudige planning.</p>
+        <div class="rule"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRAND LOGO GRID (dark) ============ -->
+<section class="section dark" id="brands">
+  <div class="wrap">
+    <div class="sec-head on-dark">
+      <div class="kicker" data-i18n="partners.brands_kicker">Vertrouwd door</div>
+      <h2 data-i18n="partners.brands_h2">Merken die met ons rijden</h2>
+      <p data-i18n="partners.brands_text">Een greep uit de merken die hun campagnes aan ons netwerk toevertrouwen.</p>
+    </div>
+    <div class="logo-grid">
+      <div class="logo-cell">Heineken</div>
+      <div class="logo-cell">KLM</div>
+      <div class="logo-cell" style="letter-spacing:1.5px;">SAMSUNG</div>
+      <div class="logo-cell thin">Booking.com</div>
+      <div class="logo-cell thin">Uber</div>
+      <div class="logo-cell thin">vodafone</div>
+      <div class="logo-cell" style="font-weight:600;letter-spacing:1px;">NESPRESSO</div>
+      <div class="logo-cell">Bol.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BECOME A TAXI PARTNER (dark split) ============ -->
+<section class="section dark" style="padding-top:0;">
+  <div class="wrap">
+    <div class="split on-dark flip">
+      <div class="split-body">
+        <div class="kicker">Voor chauffeurs</div>
+        <h2>Verdien mee aan<br>elk scherm</h2>
+        <p>Word onderdeel van het grootste digitale taxinetwerk van Nederland. Wij installeren, onderhouden en beheren — jij rijdt gewoon door.</p>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Vaste maandelijkse vergoeding per scherm</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Gratis installatie en onderhoud</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Geen afleiding voor de bestuurder</li>
+        </ul>
+        <a class="btn btn-yellow" href="/contact">Meld je vloot aan
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="split-media">
+        <image-slot id="ptn-fleet" shape="rect" fit="cover" placeholder="Taxivloot — Amsterdam"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASES ============ -->
+<section class="section white">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Cases</div>
+      <h2>Resultaten die tellen</h2>
+      <p>Een paar voorbeelden van campagnes die met ons netwerk het verschil maakten.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="num-badge">+38%</div>
+        <h3>Merkbekendheid</h3>
+        <p>Een internationaal modemerk verhoogde de spontane merkbekendheid in Amsterdam binnen één campagneperiode.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <div class="num-badge">2,1M</div>
+        <h3>Vertoningen</h3>
+        <p>Een streamingdienst bereikte ruim twee miljoen vertoningen rond een grote serielancering.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <div class="num-badge">×4</div>
+        <h3>QR-scans</h3>
+        <p>Een foodbezorger zag een viervoudige stijging in scans dankzij de companion banner met actiecode.</p>
+        <div class="rule"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <h2>Klaar om partner<br>te worden van Taxi Media?</h2>
+        <p>Of je nu wilt adverteren, je vloot wilt aanmelden of wilt samenwerken — we denken graag met je mee.</p>
+        <div class="cta-btns">
+          <a class="btn btn-dark" href="/contact">Neem contact op</a>
+          <a class="btn btn-outline-dark" href="/contact">Download media kit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><path d="M5 21h14"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="cta-right">
+        <img src="assets/media-kit-tablet.png" alt="Taxi Media — Media Kit op tablet">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <a class="logo foot-logo" href="/">
+        <img src="/brand/header-logo.png" alt="Logo" class="site-logo" style="height:32px;">
+      </a>
+    </div>
+    <div class="foot-col">
+      <h4>Menu</h4>
+      <div class="foot-menu">
+        <a href="/advertising">Adverteren</a>
+        <a href="/about">Over ons</a>
+        <a href="/partners">Partners</a>
+        <a href="/">Home</a>
+        <a href="/advertising">Screens</a>
+        <a href="/contact">Contact</a>
+        <a href="/partners">Cases</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <div class="foot-contact">
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>020 123 45 67</span>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <span>info@taximedia.nl</span>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Barbara Strozzilaan 201<br>1083 HN Amsterdam</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Volg ons</h4>
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 18.34V9.9H5.67v8.44zM7 8.67a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1m11.34 9.67v-4.63c0-2.47-1.32-3.62-3.08-3.62a2.66 2.66 0 0 0-2.41 1.33V9.9h-2.67v8.44h2.67v-4.46c0-1.18.22-2.32 1.68-2.32s1.46 1.35 1.46 2.4v4.38z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.3C16.6.2 15.5 0 14.4 0 11.9 0 10.3 1.5 10.3 4.3V6H7.5v3h2.8v9H14z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.9 12 4.9 12 4.9s-7 0-8.9.5A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5M9.75 15.5v-7l6 3.5z"/></svg></a>
+      </div>
+      <div class="foot-brand" style="margin-top:26px;">
+        <div class="nm">TAXIMEDIA.NL</div>
+        <div class="cp">© 2024 Taxi Media<br>Alle rechten voorbehouden.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+<script src="/i18n.js"></script>
+<script src="/hero-bg.js"></script>
+</body>
+</html>
+
+
+
+
+

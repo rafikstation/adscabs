@@ -1,0 +1,1460 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdsCabs â€” In-Vehicle Advertising That Moves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/design-system.css">
+<script src="image-slot.js"></script>
+<style>
+  :root{
+    --color-primary:#EB5E28;    /* brand accent â€” overridden by design-tokens.css */
+    --yellow:#EB5E28;
+    --yellow-deep:#d4541f;
+    --black:#0c0c0c;
+    --ink:#141414;
+    --panel:#171717;
+    --grey-bg:#f3f3f3;
+    --card:#ffffff;
+    --txt-dark:#161616;
+    --txt-mid:#6f6f6f;
+    --txt-light:#cfcfcf;
+    --hairline:rgba(255,255,255,.12);
+    --sans:"Space Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);color:var(--txt-dark);background:#000;-webkit-font-smoothing:antialiased;line-height:1.45;}
+  img{display:block;max-width:100%;}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 40px;}
+
+  /* ============ HEADER ============ */
+  header{background:var(--black);position:sticky;top:0;z-index:50;}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:84px;}
+  .logo{display:inline-flex;flex-direction:column;line-height:1;}
+  .logo .wordmark{display:inline-flex;align-items:stretch;font-weight:900;letter-spacing:-.5px;border:2px solid var(--yellow);}
+  .logo .wordmark .taxi{background:var(--yellow);color:#0c0c0c;padding:5px 7px 5px 8px;font-size:21px;}
+  .logo .wordmark .media{color:#fff;padding:5px 9px 5px 7px;font-size:21px;}
+  .logo .tag{font-family:'Caveat',cursive;color:var(--yellow);font-size:16px;align-self:flex-end;margin-top:2px;margin-right:2px;}
+  .mainnav{display:flex;gap:26px;}
+  .mainnav a{color:#e9e9e9;font-size:14.5px;font-weight:500;transition:color .15s;white-space:nowrap;}
+  .mainnav a:hover{color:var(--color-primary);}
+  .mainnav a.active{color:var(--color-primary);}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;padding:13px 20px;border-radius:4px;cursor:pointer;border:none;transition:transform .12s ease,background .15s,box-shadow .15s;white-space:nowrap;}
+  .btn svg{width:15px;height:15px;}
+  .btn-yellow{background:var(--yellow);color:#0c0c0c;}
+  .btn-yellow:hover{background:#ffc41f;transform:translateY(-1px);}
+  .btn-dark{background:#0c0c0c;color:#fff;}
+  .btn-dark:hover{background:#262626;transform:translateY(-1px);}
+  .btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);}
+  .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.06);}
+  .btn-outline-dark{background:transparent;color:#0c0c0c;border:1.5px solid rgba(0,0,0,.35);}
+  .btn-outline-dark:hover{border-color:#0c0c0c;}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  /* Language toggle â€” pill switch */
+  .lang-toggle{display:inline-flex;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:3px;gap:2px;flex:none;}
+  .lang-globe{display:none;}
+  .lang-sep{display:none;}
+  .lang-opt{background:transparent;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.5px;padding:5px 11px;border-radius:100px;transition:background .2s,color .2s;line-height:1;}
+  .lang-opt:hover{color:#fff;}
+  .lang-opt.is-active{background:var(--color-primary);color:#fff;}
+  /* hamburger + mobile menu (hidden on desktop) */
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;
+    background:none;border:none;cursor:pointer;padding:0;flex:none;}
+  .nav-toggle span{display:block;width:24px;height:2px;background:#fff;margin:0 auto;border-radius:2px;transition:transform .25s,opacity .2s;}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .nav-toggle.open span:nth-child(2){opacity:0;}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:49;background:var(--black);
+    border-top:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(0,0,0,.5);
+    max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .mobile-menu.open{max-height:80vh;}
+  .mobile-nav{display:flex;flex-direction:column;padding:8px 24px;}
+  .mobile-nav a{color:#e9e9e9;font-size:16px;font-weight:500;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+  .mobile-nav a:active{color:var(--color-primary);}
+  .mobile-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px 24px;}
+
+  /* ============ HERO ============ */
+  .hero{background:#000;position:relative;overflow:hidden;height:clamp(560px,63.3vw,760px);width:100%;margin:0;}
+  .hero-bg{position:absolute;inset:0;z-index:0;background:url('assets/hero-taxi.png') right center/cover no-repeat;background-color:#000;}
+  .hero-fade{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.70) 0%,rgba(0,0,0,.42) 40%,rgba(0,0,0,.42) 60%,rgba(0,0,0,.42) 75%,#000 100%),linear-gradient(to right,#000 0%,#000 10%,rgba(0,0,0,.88) 22%,rgba(0,0,0,.55) 38%,rgba(0,0,0,0) 55%,rgba(0,0,0,0) 72%,rgba(0,0,0,.55) 100%);}
+  /* live ad rotator mapped onto the tablet screen */
+  .ad-screen{position:absolute;z-index:2;overflow:hidden;border-radius:5px;container-type:size;display:none;box-shadow:inset 0 0 18px rgba(0,0,0,.45);}
+  .ad-creative{position:absolute;inset:0;opacity:0;transition:opacity .9s ease;display:flex;}
+  .ad-creative.active{opacity:1;}
+  .ac-left{flex:0 0 42%;background:#101010;display:flex;flex-direction:column;justify-content:center;gap:4cqh;padding-left:6cqw;}
+  .ac-left span{background:#f2f2f2;color:#111;font-weight:900;font-size:13cqh;line-height:1;padding:1.2cqh 1.6cqw;align-self:flex-start;text-transform:uppercase;letter-spacing:-.5px;}
+  .ac-left span.hl{color:var(--yellow);}
+  .ac-right{flex:1;position:relative;background:linear-gradient(112deg,#151515 0%,#151515 36%,var(--yellow) 36%,var(--yellow) 58%,#181818 58%);}
+  .ad-logo2{position:absolute;top:7cqh;right:5cqw;display:inline-flex;flex-direction:column;align-items:flex-end;}
+  .ad-logo2 .wm{display:inline-flex;font-weight:900;font-size:6cqh;border:1px solid var(--yellow);}
+  .ad-logo2 .wm .t{background:var(--yellow);color:#0c0c0c;padding:.6cqh 1cqw;}
+  .ad-logo2 .wm .m{color:#fff;padding:.6cqh 1cqw;}
+  .ad-logo2 .tl{color:var(--yellow);font-size:2.6cqh;letter-spacing:2px;margin-top:1cqh;font-weight:700;}
+  .ac-b{background:var(--yellow);flex-direction:column;justify-content:center;padding-left:7cqw;}
+  .ac-b .h{color:#0f0f0f;font-weight:900;font-size:17cqh;line-height:.95;text-transform:uppercase;letter-spacing:-1px;}
+  .ac-b .u{color:#3a3206;font-weight:700;font-size:5cqh;letter-spacing:1px;margin-top:3cqh;}
+  .ac-c{background:#0b0b0b;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
+  .ac-c .n{color:var(--yellow);font-weight:900;font-size:28cqh;line-height:1;letter-spacing:-1px;}
+  .ac-c .l{color:#fff;font-weight:700;font-size:6cqh;letter-spacing:2px;text-transform:uppercase;margin-top:2cqh;}
+  .ac-d{background:radial-gradient(circle at 50% 40%,#1c1c1c,#0a0a0a);flex-direction:column;justify-content:center;align-items:center;gap:3cqh;}
+  .ac-d .wm{display:inline-flex;font-weight:900;font-size:11cqh;border:2px solid var(--yellow);}
+  .ac-d .wm .t{background:var(--yellow);color:#0c0c0c;padding:1cqh 1.6cqw;}
+  .ac-d .wm .m{color:#fff;padding:1cqh 1.6cqw;}
+  .ac-d .tl{font-family:'Caveat',cursive;color:var(--yellow);font-size:7cqh;}
+  .ad-screen{display:none !important;}
+  /* ===== live TV composited INTO the inner LCD of the headrest monitor ===== */
+  .tv-screen{position:absolute;z-index:3;top:239px;right:262px;width:152px;height:113px;}
+  /* the glass plane (gets the corner-pin matrix3d) â€” its black field is the bezel margin */
+  .tv-warp{position:absolute;top:0;left:0;width:152px;height:113px;transform-origin:0 0;
+    overflow:visible;border-radius:8px;background:#1a1a1c;backface-visibility:hidden;
+    box-shadow:0 0 0 1px #050505,0 0 20px 2px rgba(255,196,90,.09),0 1px 5px rgba(0,0,0,.55);}
+  /* content fills the glass; the grey frame sits OUTSIDE via the warp's outer ring */
+  .tv-lcd{position:absolute;inset:0;border-radius:4px;overflow:hidden;background:#000;
+    box-shadow:inset 0 3px 7px rgba(0,0,0,.9),inset 0 0 12px rgba(0,0,0,.7);}
+  .tv-flex{display:flex;width:100%;height:100%;align-items:stretch;}
+  .tv-main{flex:1 1 0;min-width:0;position:relative;background:#000;overflow:hidden;}
+  /* fallback ad shown when the video is slow/blocked â€” keeps the LCD alive */
+  .tv-fallback{position:absolute;inset:0;z-index:1;display:flex;align-items:center;
+    background:linear-gradient(110deg,#0c0c0c 0%,#0c0c0c 46%,var(--yellow) 46%,#caa017 70%,#141414 70%);}
+  .tv-fallback .yb{display:flex;flex-direction:column;gap:2px;padding-left:9%;}
+  .tv-fallback .yb span{background:#f4f4f4;color:#111;font-weight:900;font-size:11px;line-height:1;
+    padding:1px 3px;align-self:flex-start;text-transform:uppercase;letter-spacing:-.3px;}
+  .tv-fallback .yb span.hl{color:var(--yellow);background:#161616;}
+  .tv-fallback .fb-logo{position:absolute;top:9%;right:7%;display:inline-flex;flex-direction:column;align-items:flex-end;}
+  .tv-fallback .fb-logo .wm{display:inline-flex;font-weight:900;font-size:6px;border:1px solid var(--yellow);line-height:1;}
+  .tv-fallback .fb-logo .wm .t{background:var(--yellow);color:#0c0c0c;padding:1px 2px;}
+  .tv-fallback .fb-logo .wm .m{color:#fff;padding:1px 2px;}
+  .tv-fallback .fb-logo .tl{color:var(--yellow);font-size:3.5px;letter-spacing:.4px;margin-top:1.5px;font-weight:700;text-transform:uppercase;}
+  .tv-main video{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:fill;display:block;background:transparent;
+    filter:brightness(1.1) saturate(1.07) contrast(1.04);}
+  /* LCD glow / brightness bloom */
+  .tv-bright{position:absolute;inset:0;z-index:5;pointer-events:none;
+    background:radial-gradient(115% 90% at 38% 30%,rgba(255,255,255,.26),rgba(255,247,230,.08) 40%,rgba(255,255,255,0) 60%);
+    mix-blend-mode:screen;}
+  /* brightness falloff + darkening toward the LCD edges (real-panel vignette) */
+  .tv-vignette{position:absolute;inset:0;z-index:6;pointer-events:none;border-radius:3px;
+    background:radial-gradient(125% 105% at 50% 46%,rgba(0,0,0,0) 50%,rgba(0,0,0,.66) 100%);
+    box-shadow:inset 0 0 16px rgba(0,0,0,.8);}
+  /* glass reflection over the whole panel (catches the night interior) */
+  .tv-glass{position:absolute;inset:0;z-index:7;pointer-events:none;border-radius:4px;
+    background:linear-gradient(122deg,rgba(255,255,255,.30) 0%,rgba(255,255,255,.10) 12%,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 62%,rgba(255,209,140,.10) 84%,rgba(255,255,255,.07) 100%);}
+  /* glass depth: inner edge shadow + faint bezel highlight */
+  .tv-edge{position:absolute;inset:0;z-index:8;pointer-events:none;border-radius:4px;
+    box-shadow:inset 0 0 12px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.08),inset 0 0 0 1px rgba(255,255,255,.05);}
+  /* 28% companion banner column â€” shows bannerN.png paired with the main video.
+     Sits on top at the seam (slight left overlap) so no video sliver bleeds under it. */
+  .tv-side{flex:0 0 var(--tv-banner-w, calc(24% + 1px));position:relative;overflow:hidden;background:#0c0c0c;}
+  .tv-side.hide{display:none;}
+  .tv-side img{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:fill;display:none;
+    filter:brightness(1.04) saturate(1.03);}
+  .tv-side video{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:fill;display:block;background:transparent;
+    filter:brightness(1.08) saturate(1.06) contrast(1.03);}
+  /* fallback banner shown until/if no bannerN.mp4 is present */
+  .tv-ban-fallback{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#0b0b0b;padding:6%;}
+  .tv-ban-fallback .n{color:var(--yellow);font-weight:900;font-size:13px;line-height:1;letter-spacing:-.5px;}
+  .tv-ban-fallback .l{color:#fff;font-weight:700;font-size:4.5px;letter-spacing:.4px;text-transform:uppercase;margin-top:2px;}
+  /* Wrap fills the full hero height; stats-bar stays anchored to the bottom */
+  .hero>.wrap{height:100%;display:flex;flex-direction:column;}
+  .hero-grid{flex:1;display:grid;grid-template-columns:1fr 1fr;align-items:flex-start;min-height:460px;position:relative;z-index:2;}
+  .hero-left{padding:48px 0 40px;position:relative;z-index:3;display:flex;flex-direction:column;align-items:flex-start;text-align:left;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(235,94,40,.12);border:1px solid rgba(235,94,40,.3);color:#fff;font-size:14px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;padding:7px 16px;border-radius:100px;margin-bottom:22px;}
+  .hero-eyebrow .dot{width:6px;height:6px;background:var(--yellow);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+  .hero h1{font-weight:900;color:#fff;font-size:clamp(42px,5.6vw,72px);line-height:.92;letter-spacing:-1px;text-transform:uppercase;}
+  .hero h1 .line{display:block;white-space:nowrap;}
+  .hero h1 .y{color:var(--color-primary);display:block;white-space:nowrap;}
+  .hero-sub{color:#d2d2d2;font-size:16px;max-width:480px;margin:22px 0 32px;line-height:1.6;text-align:left;}
+  .hero-btns{display:flex;gap:14px;justify-content:flex-start;flex-wrap:wrap;}
+  .hero-right{position:relative;align-self:stretch;}
+
+  /* stats */
+  .stats-bar{position:absolute;bottom:0;left:0;right:0;z-index:3;background:rgba(235,94,40,.04);border-top:1px solid rgba(235,94,40,.15);border-bottom:1px solid rgba(235,94,40,.15);}
+  .stats{display:flex;align-items:center;justify-content:center;gap:0;padding:26px 40px;max-width:1200px;margin:0 auto;}
+  .stat{display:flex;align-items:center;gap:13px;padding-right:38px;margin-right:38px;border-right:1px solid rgba(235,94,40,.25);}
+  .stat:last-child{border-right:none;}
+  .stat svg{width:26px;height:26px;color:var(--color-primary);flex:none;}
+  .stat .num{color:#fff;font-weight:900;font-size:23px;line-height:1;}
+  .stat .lab{color:#9a9a9a;font-size:12.5px;margin-top:3px;}
+  .scroll-ind{position:absolute;right:0;bottom:30px;writing-mode:vertical-rl;color:#7a7a7a;font-size:10px;letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+  .scroll-ind::after{content:"";width:1px;height:36px;background:linear-gradient(var(--yellow),transparent);}
+
+  /* ============ BRANDS ============ */
+  .brands{background:#151515;border-top:1px solid rgba(255,255,255,.05);margin-top:10px;}
+  .brands-inner{display:flex;align-items:center;gap:30px;padding:30px 0;flex-wrap:wrap;}
+  .brands-label{color:var(--yellow);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;max-width:120px;line-height:1.4;flex:none;}
+  .brands-logos{display:flex;align-items:center;gap:10px;flex:1;justify-content:center;flex-wrap:wrap;}
+  .brand{color:#dcdcdc;font-weight:800;font-size:19px;display:inline-flex;align-items:center;gap:7px;opacity:.85;letter-spacing:.3px;}
+  .brand.thin{font-weight:600;}
+  .brand .dot{width:7px;height:7px;}
+  .brand-logo-img{height:36px;width:auto;max-width:140px;object-fit:contain;opacity:.8;display:block;flex:none;}
+
+  /* ============ BEREIK SECTION ============ */
+  .reach{background:var(--grey-bg);padding:78px 0;}
+  .reach-grid{display:grid;grid-template-columns:0.85fr 1.4fr;gap:56px;align-items:start;}
+  .sec-h{font-weight:900;font-size:40px;line-height:1.05;letter-spacing:-.5px;}
+  .sec-h .y{color:var(--yellow);}
+  .reach-text{color:var(--txt-mid);font-size:15px;line-height:1.65;margin:22px 0 28px;max-width:330px;}
+  .reach-btns{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .reach-btns .btn{width:100%;justify-content:center;}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .card{background:var(--card);padding:30px 26px 34px;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.05);position:relative;}
+  .card .ico{width:30px;height:30px;color:#1c1c1c;margin-bottom:46px;}
+  .card h3{font-size:18px;font-weight:800;margin-bottom:12px;}
+  .card p{color:var(--txt-mid);font-size:13.5px;line-height:1.6;}
+  .card .rule{position:absolute;left:26px;bottom:18px;width:34px;height:3px;background:var(--yellow);}
+
+  /* ============ NETWORK SECTION ============ */
+  .network{background:var(--black);display:grid;grid-template-columns:1fr 1fr;}
+  .net-left{padding:80px 56px 80px 0;position:relative;overflow:hidden;}
+  .net-left .wrap-inner{max-width:600px;margin-left:auto;width:100%;padding-left:40px;position:relative;z-index:2;}
+  .net-map{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:300px;opacity:.9;z-index:1;}
+  .kicker{color:var(--yellow);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;}
+  .net-left .kicker{color:#fff;}
+  .net-left h2{color:#fff !important;font-weight:900;font-size:34px;line-height:1.12;letter-spacing:-.3px;}
+  .net-left p{color:#b7b7b7;font-size:15px;line-height:1.6;margin:20px 0 30px;max-width:330px;}
+  .net-right{position:relative;min-height:440px;}
+  .net-right image-slot{position:absolute;inset:0;width:100%;height:100%;}
+  .net-right::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#0c0c0c 0%,rgba(12,12,12,.7) 18%,rgba(12,12,12,0) 42%);}
+  .net-tag{position:absolute;top:26px;left:26px;z-index:3;color:#fff;font-weight:700;font-size:15px;text-shadow:0 1px 6px rgba(0,0,0,.6);}
+
+  /* ============ CTA YELLOW ============ */
+  .cta{background:var(--yellow);position:relative;overflow:hidden;}
+  .cta-inner{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:30px;padding:56px 0;min-height:300px;}
+  .cta-left{max-width:520px;}
+  .cta-left h2{font-weight:900;font-size:38px;line-height:1.12;color:#141414;letter-spacing:-.4px;}
+  .cta-left p{color:#3a3206;font-size:15.5px;line-height:1.7;margin:18px 0 30px;max-width:360px;}
+  .cta-btns{display:flex;gap:14px;flex-wrap:wrap;}
+  /* media-kit image */
+  .cta-right{position:relative;display:flex;justify-content:center;align-items:center;}
+  .cta-right img{width:108%;max-width:none;height:auto;display:block;filter:drop-shadow(-30px 34px 46px rgba(0,0,0,.3));}
+
+  /* ============ FOOTER ============ */
+  footer{background:var(--black);padding:54px 0 40px;border-top:1px solid rgba(255,255,255,.05);}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.1fr 1fr;gap:30px;}
+  .foot-col h4{color:#fff;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px;}
+  .foot-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;}
+  .foot-col a,.foot-col li,.foot-line{color:#9a9a9a;font-size:13.5px;line-height:1.9;list-style:none;transition:color .15s;}
+  .foot-menu a:hover{color:var(--yellow);}
+  .foot-contact{display:flex;flex-direction:column;gap:12px;}
+  .foot-contact .row{display:flex;align-items:flex-start;gap:10px;color:#bdbdbd;font-size:13.5px;}
+  .foot-contact .row svg{width:15px;height:15px;color:var(--yellow);flex:none;margin-top:3px;}
+  .socials{display:flex;gap:12px;}
+  .socials a{width:34px;height:34px;border:1px solid rgba(255,255,255,.18);border-radius:5px;display:flex;align-items:center;justify-content:center;color:#cfcfcf;transition:.15s;}
+  .socials a:hover{background:var(--yellow);color:#0c0c0c;border-color:var(--yellow);}
+  .socials svg{width:16px;height:16px;}
+  .foot-brand{text-align:left;}
+  .foot-brand .nm{color:var(--yellow);font-weight:800;letter-spacing:1px;font-size:15px;margin-bottom:12px;}
+  .foot-brand .cp{color:#7d7d7d;font-size:12.5px;line-height:1.7;}
+  .foot-logo{margin-bottom:8px;line-height:1;}
+  /* footer logo: same boxed wordmark and size as the top logo, but grey */
+  .foot-logo .wordmark{border-color:#6f6f73;line-height:1;}
+  .foot-logo .wordmark .taxi{background:#6f6f73;color:#1a1a1a;padding:5px 7px 5px 8px;font-size:21px;line-height:1;}
+  .foot-logo .wordmark .media{color:#9a9a9e;padding:5px 9px 5px 7px;font-size:21px;line-height:1;}
+  .foot-logo .tag{color:#6f6f73;font-size:16px;white-space:nowrap;line-height:1;}
+
+  image-slot{--radius:0;}
+  .site-logo{display:block;height:40px;width:auto;}
+
+  /* ===== Tweakable: headline personality ===== */
+  .hero h1,.sec-h,.net-left h2,.cta-left h2{font-family:var(--headline,var(--sans));}
+  body[data-headline="Editorial"]{--headline:"Libre Caslon Display",Georgia,serif;}
+  body[data-headline="Editorial"] .hero h1,
+  body[data-headline="Editorial"] .sec-h,
+  body[data-headline="Editorial"] .net-left h2,
+  body[data-headline="Editorial"] .cta-left h2{text-transform:none;letter-spacing:0;font-weight:400;line-height:1.05;}
+  body[data-headline="Poster"]{--headline:"Anton",Impact,sans-serif;}
+  body[data-headline="Poster"] .hero h1,
+  body[data-headline="Poster"] .sec-h,
+  body[data-headline="Poster"] .net-left h2,
+  body[data-headline="Poster"] .cta-left h2{text-transform:uppercase;letter-spacing:.5px;font-weight:400;}
+
+  /* â”€â”€ Tablet / small laptop (901â€“1200px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  @media(min-width:901px) and (max-width:1200px){
+    .wrap{padding:0 30px;}
+    .nav{height:76px;}
+    header .logo-svg-img{height:calc(var(--logo-header-h,46px) * 0.89);}
+    footer .logo-svg-img{height:calc(var(--logo-footer-h,40px) * 0.89);}
+    /* Hero */
+    .hero-grid{min-height:clamp(360px,44vw,500px);}
+    .hero h1{font-size:clamp(28px,3.8vw,50px) !important;line-height:.95 !important;}
+    .hero h1 .line,.hero h1 .y{font-size:clamp(28px,3.8vw,50px) !important;line-height:.95 !important;}
+    .hero-sub{font-size:clamp(13px,1.5vw,16px) !important;max-width:360px;margin:18px 0 26px !important;}
+    .hero-btns .btn{padding:10px 14px;font-size:13px;}
+    /* Stats */
+    .stats{padding:18px 0;gap:0;}
+    .stat{padding-right:clamp(14px,2.5vw,38px);margin-right:clamp(14px,2.5vw,38px);}
+    .stat .num{font-size:clamp(16px,2vw,23px);}
+    .stat svg{width:22px;height:22px;}
+    /* Reach */
+    .reach{padding:60px 0;}
+    .reach-grid{gap:36px;}
+    .sec-h{font-size:clamp(28px,3.2vw,40px);}
+    .cards{gap:14px;}
+    .card{padding:24px 20px 28px;}
+    /* Network */
+    .net-left{padding:60px 40px 60px 0;}
+    .net-left .wrap-inner{padding-left:30px;}
+    .net-left h2{font-size:clamp(24px,3vw,34px);}
+    .net-left p{max-width:none;}
+    /* CTA */
+    .cta-inner{padding:44px 0;gap:20px;}
+    .cta-left h2{font-size:clamp(26px,3.2vw,38px);}
+    .cta-left p{font-size:14px;}
+    /* Footer */
+    .foot-grid{gap:18px;}
+  }
+
+  /* â”€â”€ Mobile / tablet portrait (â‰¤900px) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  @media(max-width:900px){
+    .wrap{padding:0 22px;}
+    .nav{height:64px;}
+    header .logo-svg-img{height:calc(var(--logo-header-h,46px) * 0.78);}
+    footer .logo-svg-img{height:calc(var(--logo-footer-h,40px) * 0.78);}
+    .mainnav{display:none;}
+    .nav-right{display:none;}
+    .nav-toggle{display:flex;}
+    .mobile-menu{display:block;}
+    /* Lang toggle stays visible next to hamburger on mobile */
+    .lang-toggle{display:inline-flex;}
+
+    .hero-grid,.network,.reach-grid,.foot-grid,.cta-inner{grid-template-columns:1fr;}
+    .cta-right{margin-top:34px;}
+    /* hero: full image as a top band; headline overlaid on it, content stacked below */
+    .hero{height:auto;}
+    .hero-bg{position:relative;inset:auto;width:100%;height:0;padding-bottom:66.625%;
+      background:url('assets/hero-taxi.png') center top/125% auto no-repeat;background-color:#000;}
+    .hero-bg::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(90deg,#000 0%,rgba(0,0,0,.92) 16%,rgba(0,0,0,.55) 40%,rgba(0,0,0,.18) 60%,rgba(0,0,0,0) 78%);}
+    .hero-fade{display:none;}
+    .tv-screen{display:block;}
+    .hero{min-height:0;}
+    .hero>.wrap{height:auto;position:static;display:flex;flex-direction:column;
+      align-items:center;justify-content:flex-start;padding:0 0 20px;min-height:20px;}
+    .hero-grid{display:contents;}
+    .hero-left{display:contents;}
+    .hero-right{display:none;}
+    /* Eyebrow hidden on mobile â€” limited space, h1 at 15px already fills the role */
+    .hero-eyebrow{display:none;}
+    /* headline overlaid on the image â€” scales from phone to large tablet */
+    .hero h1{position:absolute;top:15px;left:6vw;z-index:4;margin:0;
+      font-size:clamp(18px,5vw,38px);line-height:1.05;letter-spacing:-.4px;text-align:left;
+      text-shadow:0 2px 10px rgba(0,0,0,.7),0 0 2px rgba(0,0,0,.6);}
+    .hero h1 .line,.hero h1 .y{font-size:clamp(18px,5vw,38px) !important;font-family:inherit !important;
+      line-height:1.06 !important;letter-spacing:-.4px !important;white-space:nowrap;display:block;}
+    /* sub-text */
+    .hero-sub{position:absolute;top:calc(15px + clamp(34px,9vw,70px) + 60px);left:6vw;width:58%;z-index:4;margin:0;
+      font-size:clamp(10px,2.5vw,15px);line-height:1.45;text-align:left;color:#ededed;
+      text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.7);}
+    /* Buttons below the image, stats below the buttons â€” all in normal flow */
+    .hero-btns{position:static;transform:none;
+      flex-direction:column;align-items:stretch;gap:8px;
+      width:90vw;max-width:90vw;margin:16px 0 0;align-self:center;}
+    .hero-btns .btn{width:100%;justify-content:center;}
+
+    /* Stats bar: in flow after buttons, same orange tint as desktop */
+    .stats-bar{position:relative;top:auto;left:auto;right:auto;z-index:3;
+      background:rgba(235,94,40,.04);
+      border-top:1px solid rgba(235,94,40,.15);
+      border-bottom:1px solid rgba(235,94,40,.15);
+      -webkit-backdrop-filter:none;backdrop-filter:none;
+      box-shadow:none;padding:18px 22px;}
+
+    /* 2 Ã— 2 grid â€” two stats per row */
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;
+      padding:0;max-width:none;margin:0;}
+    .stat{flex-direction:row;align-items:center;text-align:left;gap:10px;
+      padding:0;margin:0;border-right:none;flex:none;}
+    .stat svg{width:22px;height:22px;color:var(--color-primary);flex:none;}
+    .stat .num{font-size:16px;color:#fff;text-shadow:none;}
+    .stat .lab{font-size:10px;margin-top:2px;line-height:1.2;color:#9a9a9a;text-shadow:none;}
+    .stat svg,.stat .num,.stat .lab{transition:color .5s ease;}
+    .stat.active svg,.stat.active .num,.stat.active .lab{color:var(--color-primary);}
+    .scroll-ind{display:none;}
+
+    /* brands: centered one-line label + slow left-scrolling logo marquee
+       (padding balanced so the logo row sits at the section's vertical center) */
+    .brands{overflow:hidden;padding:12px 0 37px;border-top:1px solid rgba(255,255,255,.12);margin-top:10px;}
+    .brands-inner{flex-direction:column;align-items:flex-start;gap:10px;padding-left:22px;padding-right:22px;}
+    .brands-label{max-width:none;white-space:nowrap;text-align:left;align-self:flex-start;}
+    .brands-logos{flex-wrap:nowrap;width:max-content;align-self:flex-start;align-items:center;gap:10px;
+      animation:brandscroll 24s linear infinite;}
+    .brand{flex:none;align-items:center;}
+    .brand-logo-img{flex:none;height:28px;}
+
+    .reach{padding:54px 0;}
+    .reach-grid{gap:36px;}
+    .reach-text{max-width:none;}
+    .reach-btns{align-items:stretch;}
+    .reach-btns .btn{width:100%;justify-content:center;}
+    .cards{grid-template-columns:1fr;}
+
+    .net-left{padding:54px 0;}
+    .net-left .wrap-inner{padding-left:22px;margin-left:0;max-width:none;}
+    .net-left p{max-width:none;}
+    .net-right{min-height:300px;}
+    .net-map{display:none;}
+
+    .cta-left{max-width:none;}
+    .cta-left h2 br{display:none;}
+
+    .foot-grid{gap:34px;}
+  }
+
+  @media(max-width:560px){
+    .wrap{padding:0 18px;}
+    .sec-h{font-size:clamp(26px,7vw,32px);}
+    .net-left h2{font-size:clamp(22px,6.5vw,28px);}
+    .cta-left h2{font-size:clamp(22px,6.5vw,28px);}
+    .hero-btns{flex-direction:column;align-items:stretch;}
+    .hero-btns .btn{justify-content:center;}
+    .stat{width:100%;}
+    .foot-menu{grid-template-columns:1fr;}
+    .cta-btns{flex-direction:column;align-items:stretch;}
+    .cta-btns .btn{justify-content:center;}
+  }
+  @media(max-width:400px){
+    .hero-bg{padding-bottom:72%;}
+    .stat .num{font-size:13px;}
+    .stat .lab{font-size:8px;}
+    .hero-btns{width:82vw;}
+  }
+
+  /* logo marquee (mobile) */
+  @keyframes brandscroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* â”€â”€ Brand identity: all sections below the hero use the brand orange â”€â”€ */
+  .brands,.reach,.network,.cta,footer{--yellow:#EB5E28;}
+</style>
+<link rel="stylesheet" href="/typography-overrides.css">
+<link rel="stylesheet" href="/design-tokens.css">
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#0c0c0c">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0c0c0c"/>
+    <g transform="translate(600 400)">
+      <rect x="-235" y="-58" width="470" height="116" fill="none" stroke="#F7B500" stroke-width="8"/>
+      <rect x="-235" y="-58" width="235" height="116" fill="#F7B500"/>
+      <text x="-117" y="22" font-family="Helvetica,Arial,sans-serif" font-weight="900" font-size="78" fill="#0c0c0c" text-anchor="middle">TAXI</text>
+      <text x="117" y="22" font-family="Helvetica,Arial,sans-serif" font-weight="900" font-size="78" fill="#ffffff" text-anchor="middle">MEDIA</text>
+    </g>
+    <text x="600" y="500" font-family="cursive" font-size="34" fill="#F7B500" text-anchor="middle">On the move</text>
+  </svg>
+</template>
+
+<!-- ============ HEADER ============ -->
+<header style="color: rgb(0, 0, 0)">
+  <div class="wrap nav">
+    <a class="logo" href="#">
+      <img src="/brand/header-logo.png" alt="Logo" class="site-logo">
+    </a>
+    <nav class="mainnav">
+      <a href="/" class="active" data-i18n="nav.home">Home</a>
+      <a href="/about" data-i18n="nav.about">About</a>
+      <a href="/advertising" data-i18n="nav.advertising">Advertising</a>
+      <a href="/partners" data-i18n="nav.partners">Partners</a>
+      <a href="/contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-opt is-active" data-lang="nl">NL</button>
+      <button class="lang-opt" data-lang="en">EN</button>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-yellow" href="/advertising"><span data-i18n="nav.cta_btn">Adverteren</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <nav class="mobile-nav">
+    <a href="/" class="active" data-i18n="nav.home">Home</a>
+    <a href="/about" data-i18n="nav.about">About</a>
+    <a href="/advertising" data-i18n="nav.advertising">Advertising</a>
+    <a href="/partners" data-i18n="nav.partners">Partners</a>
+    <a href="/contact" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="mobile-foot">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+      <button class="lang-opt is-active" data-lang="nl">NL</button>
+      <span class="lang-sep"></span>
+      <button class="lang-opt" data-lang="en">EN</button>
+    </div>
+    <a class="btn btn-yellow" href="/advertising"><span data-i18n="nav.cta_btn">Adverteren</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-fade"></div>
+  <div class="tv-screen" id="tvScreen">
+    <div class="tv-warp" id="tvWarp">
+      <div class="tv-lcd">
+        <div class="tv-flex">
+          <div class="tv-main">
+            <div class="tv-fallback">
+              <div class="yb"><span>Your</span><span class="hl">Brand</span><span>Here</span></div>
+              <div class="fb-logo"><span class="wm"><span class="t">ADS</span><span class="m">CABS</span></span><span class="tl">On the move</span></div>
+            </div>
+            <video id="tvVideo" autoplay muted playsinline preload="auto"></video>
+          </div>
+          <div class="tv-side" id="tvSide">
+            <div class="tv-ban-fallback">
+              <div class="n">1,2M+</div>
+              <div class="l">Reizigers<br>per week</div>
+            </div>
+            <img id="tvBannerImg" alt="">
+          </div>
+        </div>
+        <div class="tv-bright"></div>
+        <div class="tv-vignette"></div>
+      </div>
+      <div class="tv-glass"></div>
+      <div class="tv-edge"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-eyebrow"><span class="dot"></span><span data-i18n="home.hero_eyebrow">In-Vehicle Digital Advertising</span></div>
+        <h1><span class="line" data-i18n="home.hero_line1" style="font-size: 40px; padding: 0px 0px 10px">Advertising that moves</span><span class="y" data-i18n="home.hero_line2" style="font-size: 40px;">with Amsterdam</span></h1>
+        <p class="hero-sub" data-i18n="home.hero_sub" style="font-size: 16px">We help brands become part of Amsterdam's daily journey through high-impact advertising that moves throughout the city.</p>
+        <div class="hero-btns">
+          <button class="btn btn-yellow" data-i18n="home.hero_btn1">Request Proposal
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+          <button class="btn btn-outline" data-i18n="home.hero_btn2">Become a Partner
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="hero-right"></div>
+    </div>
+
+  </div><!-- end .wrap -->
+  <div class="stats-bar">
+    <div class="stats">
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polygon points="10 8 15 11 10 14" fill="currentColor" stroke="none"/></svg>
+        <div><div class="num" data-i18n="home.stat1_num">500+</div><div class="lab" data-i18n="home.stat1_lab">Planned Screens</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div><div class="num" data-i18n="home.stat2_num">500+</div><div class="lab" data-i18n="home.stat2_lab">Planned Taxis</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div><div class="num" data-i18n="home.stat3_num">1,2M+</div><div class="lab" data-i18n="home.stat3_lab">Weekly reach</div></div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><div class="num" data-i18n="home.stat4_num">1700+</div><div class="lab" data-i18n="home.stat4_lab">Locations in Amsterdam</div></div>
+      </div>
+    </div>
+    <div class="scroll-ind">SCROLL</div>
+  </div>
+</section>
+
+<!-- ============ BRANDS ============ -->
+<section class="brands">
+  <div class="wrap brands-inner">
+    <div class="brands-label" data-i18n="home.brands_label" style="font-family: Arial; font-size: 10px; font-weight: 100; text-align: center">Trusted by leading brands</div>
+    <div class="brands-logos">
+      <span class="brand">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--yellow)"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"/></svg>Heineken</span>
+      <span class="brand">
+        <svg width="16" height="14" viewBox="0 0 24 24" fill="#cfcfcf"><path d="M2 18h20l-2-9-4 4-4-7-4 7-4-4z"/></svg>KLM</span>
+      <span class="brand" style="letter-spacing:1.5px;">SAMSUNG</span>
+      <span class="brand thin">Booking.com</span>
+      <span class="brand thin" style="font-size:21px;">Uber</span>
+      <span class="brand thin"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:#cfcfcf;"></span>vodafone</span>
+      <span class="brand" style="font-weight:600;letter-spacing:1px;">NESPRESSO<span style="color:var(--yellow);">.</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEREIK. IMPACT. RESULTAAT. ============ -->
+<section class="reach">
+  <div class="wrap reach-grid">
+    <div>
+      <h2 class="sec-h"><span data-i18n="home.reach_h2_line1">Why Taxi</span><br><span class="y" data-i18n="home.reach_h2_line2">Advertising?</span></h2>
+      <p class="reach-text" data-i18n="home.reach_text">Taxi media combines mobility, visibility and engagement in one powerful advertising channel.</p>
+      <div class="reach-btns">
+        <button class="btn btn-dark" data-i18n="home.reach_btn">Learn More
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <h3 data-i18n="home.card1_title">Captive Attention</h3>
+        <p data-i18n="home.card1_text">Passengers spend uninterrupted time inside the vehicle, creating opportunities for meaningful brand exposure.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h3 data-i18n="home.card2_title">City-Wide Visibility</h3>
+        <p data-i18n="home.card2_text">Branded taxis travel through Amsterdam's most active commercial, business and tourist areas.</p>
+        <div class="rule"></div>
+      </div>
+      <div class="card">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <h3 data-i18n="home.card3_title">Flexible Campaigns</h3>
+        <p data-i18n="home.card3_text">From short-term promotions to long-term brand awareness campaigns â€” built around your goals.</p>
+        <div class="rule"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NETWORK ============ -->
+<section class="network">
+  <div class="net-left">
+    <div class="wrap-inner">
+      <div class="kicker" data-i18n="home.network_kicker">Amsterdam focus</div>
+      <h2 data-i18n="home.network_h2" style="font-weight: 700; width: 400px">Built for Amsterdam</h2>
+      <p data-i18n="home.network_text1" style="font-weight: 400">TaxiMedia is focused exclusively on Amsterdam, covering Centrum, Zuidas, RAI Amsterdam, Museumplein and Johan Cruijff Arena.</p>
+      <p data-i18n="home.network_text2" style="font-weight: 400; margin-top: 14px">One city, stronger partnerships and quality you can trust.</p>
+      <button class="btn btn-outline" data-i18n="home.network_btn" style="margin-top: 20px">View locations
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+    <canvas class="net-map" id="nlMap" width="300" height="380" style="opacity: 0.9"></canvas>
+  </div>
+  <div class="net-right">
+    <div class="net-tag">
+</div>
+    <image-slot id="net-taxi" shape="rect" fit="cover" placeholder="Taxi bij luchthaven â€” nacht"></image-slot>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <h2 data-i18n="home.cta_h2">Ready to put your brand in motion?</h2>
+        <p data-i18n="home.cta_text">Let's create an advertising campaign that travels with Amsterdam.</p>
+        <div class="cta-btns">
+          <button class="btn btn-dark" data-i18n="home.cta_btn1">Request Proposal</button>
+          <button class="btn btn-outline-dark" data-i18n="home.cta_btn2">Contact Us
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="cta-right">
+        <img id="cta-img" src="assets/media-kit-tablet.png" alt="Taxi Media â€” Media Kit op tablet" style="width: 389px">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <div class="foot-col">
+      <a class="logo foot-logo" href="#">
+        <img src="/brand/header-logo.png" alt="Logo" class="site-logo" style="height:32px;">
+      </a>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="footer.menu_title">Menu</h4>
+      <div class="foot-menu">
+        <a href="/advertising" data-i18n="footer.menu_advertise">Adverteren</a>
+        <a href="/about" data-i18n="footer.menu_about">Over ons</a>
+        <a href="/partners" data-i18n="footer.menu_partners">Partners</a>
+        <a href="/" data-i18n="footer.menu_home">Home</a>
+        <a href="/advertising" data-i18n="footer.menu_screens">Screens</a>
+        <a href="/contact" data-i18n="footer.menu_contact">Contact</a>
+        <a href="/partners" data-i18n="footer.menu_cases">Cases</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="footer.contact_title">Contact</h4>
+      <div class="foot-contact">
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span data-i18n="footer.phone">020 123 45 67</span>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          <span data-i18n="footer.email">info@taximedia.nl</span>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-i18n-html="footer.address">Barbara Strozzilaan 201<br>1083 HN Amsterdam</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4 data-i18n="footer.follow_title">Volg ons</h4>
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8.34 18.34V9.9H5.67v8.44zM7 8.67a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1m11.34 9.67v-4.63c0-2.47-1.32-3.62-3.08-3.62a2.66 2.66 0 0 0-2.41 1.33V9.9h-2.67v8.44h2.67v-4.46c0-1.18.22-2.32 1.68-2.32s1.46 1.35 1.46 2.4v4.38z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3l.5-3H14V4.5c0-.9.3-1.5 1.6-1.5H17V.3C16.6.2 15.5 0 14.4 0 11.9 0 10.3 1.5 10.3 4.3V6H7.5v3h2.8v9H14z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.9 12 4.9 12 4.9s-7 0-8.9.5A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5M9.75 15.5v-7l6 3.5z"/></svg></a>
+      </div>
+      <div class="foot-brand" style="margin-top:26px;">
+        <div class="nm" data-i18n="footer.company_name">TAXIMEDIA</div>
+        <div class="cp"><span data-i18n="footer.company_tagline">Advertising That Moves With Amsterdam.</span><br><span data-i18n="footer.company_sub">Operated by AdsCabs B.V., Amsterdam, The Netherlands.</span></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Netherlands silhouette rendered as a yellow dot-grid (decorative).
+(function(){
+  var c = document.getElementById('nlMap');
+  if(!c) return;
+  var ctx = c.getContext('2d');
+  // Rough normalized polygon of NL outline (x,y in 0..1)
+  var poly = [
+    [0.42,0.02],[0.52,0.05],[0.55,0.12],[0.66,0.10],[0.70,0.16],[0.66,0.22],
+    [0.74,0.26],[0.82,0.30],[0.88,0.40],[0.84,0.50],[0.90,0.58],[0.80,0.66],
+    [0.78,0.78],[0.66,0.88],[0.58,0.97],[0.50,0.92],[0.46,0.80],[0.36,0.78],
+    [0.30,0.68],[0.34,0.58],[0.24,0.52],[0.20,0.42],[0.28,0.34],[0.22,0.26],
+    [0.30,0.18],[0.34,0.10]
+  ];
+  var W=c.width, H=c.height;
+  function inside(px,py){
+    var x=px/W, y=py/H, inP=false;
+    for(var i=0,j=poly.length-1;i<poly.length;j=i++){
+      var xi=poly[i][0],yi=poly[i][1],xj=poly[j][0],yj=poly[j][1];
+      if(((yi>y)!=(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) inP=!inP;
+    }
+    return inP;
+  }
+  var step=11;
+  for(var y=4;y<H;y+=step){
+    for(var x=4;x<W;x+=step){
+      if(inside(x,y)){
+        var r = Math.random();
+        ctx.beginPath();
+        ctx.arc(x,y, r>0.85?2.4:1.6, 0, Math.PI*2);
+        ctx.fillStyle = r>0.85 ? 'rgba(247,181,0,0.95)' : 'rgba(247,181,0,0.35)';
+        ctx.fill();
+      }
+    }
+  }
+})();
+
+
+// Apply admin-uploaded hero background image, then detect dimensions and trigger warp.
+// This is the ONLY place detectBgSize is called â€” guaranteeing applyWarp always uses
+// the final background (custom or default), not the CSS default that loads first.
+(function(){
+  function afterBgSet() {
+    if (window.detectBgSize) {
+      window.detectBgSize(function(){
+        window._bgDone = true;
+        if (window._tryWarp) window._tryWarp();
+      });
+    }
+  }
+  fetch('/api/hero-bg').then(function(r){ return r.ok ? r.json() : null; }).then(function(bgs){
+    var src = null;
+    if (bgs && bgs.home) {
+      var entry = bgs.home;
+      src = typeof entry === 'string' ? entry : (entry.img || null);
+    }
+    if (src) {
+      var el = document.querySelector('.hero-bg');
+      if (el) el.style.backgroundImage = 'url(' + src + ')';
+    }
+    // Whether or not a custom bg was applied, now detect and warp
+    afterBgSet();
+  }).catch(function(){ afterBgSet(); });
+})();
+
+// Mobile: position hero buttons 10px below the actual bottom of the subtitle text
+(function(){
+  function positionHeroBtns(){
+    // Buttons are in normal flow on mobile â€” no absolute positioning needed
+    if(window.innerWidth > 900) return;
+    var wrap = document.querySelector('.hero>.wrap');
+    if(wrap) wrap.style.minHeight = '';
+  }
+  window.addEventListener('load', positionHeroBtns);
+  window.addEventListener('resize', positionHeroBtns);
+  // Also run after fonts/content settle
+  setTimeout(positionHeroBtns, 300);
+})();
+
+// Apply logo â€” sync from cache first, then refresh from API
+(function(){
+  try {
+    var cs=localStorage.getItem('site_logo_src'),cw=localStorage.getItem('site_logo_w'),ch=localStorage.getItem('site_logo_h');
+    if(cs) document.querySelectorAll('.site-logo').forEach(function(img){
+      img.src=cs; if(cw) img.style.width=cw+'px'; if(ch) img.style.height=ch+'px';
+    });
+  } catch(e){}
+  fetch('/api/logo-settings').then(function(r){return r.ok?r.json():null;}).then(function(s){
+    if(!s) return;
+    document.querySelectorAll('.site-logo').forEach(function(img){
+      if(s.src) img.src=s.src; if(s.width) img.style.width=s.width+'px'; if(s.height) img.style.height=s.height+'px';
+    });
+    try{if(s.src) localStorage.setItem('site_logo_src',s.src); if(s.width) localStorage.setItem('site_logo_w',s.width); if(s.height) localStorage.setItem('site_logo_h',s.height);}catch(e){}
+  }).catch(function(){});
+})();
+
+// Load admin-uploaded images for the network and CTA sections
+(function(){
+  fetch('/api/slot-image').then(function(r){ return r.ok ? r.json() : null; }).then(function(imgs){
+    if(!imgs) return;
+    if(imgs['net-taxi']){
+      var slot = document.getElementById('net-taxi');
+      if(slot) slot.setAttribute('src', imgs['net-taxi']);
+    }
+    if(imgs['cta-image']){
+      var ctaImg = document.getElementById('cta-img');
+      if(ctaImg) ctaImg.src = imgs['cta-image'];
+    }
+  }).catch(function(){});
+})();
+
+// Language toggle handled by i18n.js
+
+// Mobile hamburger menu
+(function(){
+  var btn = document.getElementById('navToggle');
+  var menu = document.getElementById('mobileMenu');
+  if(!btn || !menu) return;
+  function close(){ btn.classList.remove('open'); menu.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  // close when a nav link or the Adverteren button is tapped
+  menu.querySelectorAll('.mobile-nav a, .btn').forEach(function(el){
+    el.addEventListener('click', close);
+  });
+  // close if resized up to desktop
+  window.addEventListener('resize', function(){ if(window.innerWidth > 900) close(); });
+})();
+
+// Cycle the highlighted stat every 3s â€” active = brand yellow, others white (mobile only)
+(function(){
+  var stats = Array.prototype.slice.call(document.querySelectorAll('.stats .stat'));
+  if(stats.length < 2) return;
+  function paint(stat, active){
+    var yellow = (getComputedStyle(document.documentElement).getPropertyValue('--yellow') || '#F7B500').trim();
+    stat.querySelectorAll('svg, .num, .lab').forEach(function(el){
+      el.style.transition = 'color .5s ease';
+      el.style.color = active ? yellow : (el.classList.contains('lab') ? '#dcdcdc' : '#fff');
+    });
+  }
+  function clearInline(){
+    stats.forEach(function(s){ s.querySelectorAll('svg, .num, .lab').forEach(function(el){ el.style.color=''; el.style.transition=''; }); });
+  }
+  var i = 0;
+  function tick(){
+    if(window.innerWidth > 900){ return; }   // desktop keeps its own styling
+    stats.forEach(function(s, idx){ paint(s, idx === i); });
+    i = (i + 1) % stats.length;
+  }
+  tick();
+  setInterval(tick, 3000);
+  window.addEventListener('resize', function(){ if(window.innerWidth > 900) clearInline(); });
+})();
+
+// Duplicate the partner logos so the mobile marquee loops seamlessly
+(function(){
+  if(window.innerWidth > 900) return;
+  var track = document.querySelector('.brands-logos');
+  if(!track || track.dataset.dup) return;
+  track.dataset.dup = '1';
+  track.innerHTML = track.innerHTML + track.innerHTML;
+})();
+
+// Live TV screen â€” rotate 3 videos in the main pane + 4 banners in the sidebar
+(function(){
+  var v = document.getElementById('tvVideo');
+  if(!v) return;
+
+  /* â”€â”€ Detect actual hero-bg image dimensions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     applyWarp uses these instead of hardcoded 1600Ã—1066, so it works with
+     any background image uploaded via the admin.                            */
+  // Exposed on window so imgRect() (zone editor) and applyWarp() always share the same value
+  // Seed from localStorage cache so first applyWarp uses correct dimensions immediately
+  try { var _bgCache=JSON.parse(localStorage.getItem('hero_bg_dims')||'{}'); if(_bgCache.w&&_bgCache.h){window._bgW=_bgCache.w;window._bgH=_bgCache.h;} } catch(e){}
+  window._bgW = window._bgW || 1600;
+  window._bgH = window._bgH || 1066;
+  var _bgW = window._bgW, _bgH = window._bgH; // local aliases
+
+  function detectBgSize(callback) {
+    var heroBg = document.querySelector('.hero-bg');
+    if (!heroBg) { if(callback) callback(); return; }
+    // prefer inline style (admin-uploaded) over computed CSS
+    var raw = heroBg.style.backgroundImage || window.getComputedStyle(heroBg).backgroundImage;
+    var m = raw.match(/url\(["']?([^"')]+)["']?\)/);
+    if (!m) { if(callback) callback(); return; }
+    var probe = new Image();
+    probe.onload = function() {
+      if (probe.naturalWidth > 0 && probe.naturalHeight > 0) {
+        _bgW = window._bgW = probe.naturalWidth;
+        _bgH = window._bgH = probe.naturalHeight;
+        try{localStorage.setItem('hero_bg_dims',JSON.stringify({w:probe.naturalWidth,h:probe.naturalHeight}));}catch(e){}
+        // update mobile CSS padding-bottom to match new aspect ratio
+        var pct = (_bgH / _bgW * 100).toFixed(3) + '%';
+        try {
+          for (var i = 0; i < document.styleSheets.length; i++) {
+            var rules = document.styleSheets[i].cssRules || [];
+            for (var j = 0; j < rules.length; j++) {
+              if (rules[j].media && rules[j].cssRules) {
+                for (var k = 0; k < rules[j].cssRules.length; k++) {
+                  var r = rules[j].cssRules[k];
+                  if (r.selectorText && r.selectorText.indexOf('.hero-bg') >= 0 && r.style.paddingBottom) {
+                    r.style.paddingBottom = pct;
+                  }
+                }
+              }
+            }
+          }
+        } catch(e) {}
+      }
+      if(callback) callback();
+    };
+    probe.onerror = function() { if(callback) callback(); };
+    probe.src = m[1];
+  }
+
+  window.detectBgSize = detectBgSize; // triggered by admin-bg loader after final bg is set
+
+  // --- Perspective warp: map the warp surface onto the monitor's glass quad ---
+  var warp = document.getElementById('tvWarp');
+  // Screen-glass corners as fractions of the hero photo (measured from the image)
+  var Q = { TL:[0.6442,0.3273], TR:[0.7632,0.2926], BR:[0.7608,0.4410], BL:[0.6411,0.4542] };
+  var FX0=0.6411, FX1=0.7632, FY0=0.2926, FY1=0.4542; // bounding box of the quad
+
+  function solve(A, b){ // Gaussian elimination, n x n
+    var n=b.length, i, j, k;
+    for(i=0;i<n;i++){
+      var p=i; for(j=i+1;j<n;j++){ if(Math.abs(A[j][i])>Math.abs(A[p][i])) p=j; }
+      var t=A[i]; A[i]=A[p]; A[p]=t; var tb=b[i]; b[i]=b[p]; b[p]=tb;
+      for(j=i+1;j<n;j++){
+        var f=A[j][i]/A[i][i];
+        for(k=i;k<n;k++) A[j][k]-=f*A[i][k];
+        b[j]-=f*b[i];
+      }
+    }
+    var x=new Array(n);
+    for(i=n-1;i>=0;i--){ var s=b[i]; for(j=i+1;j<n;j++) s-=A[i][j]*x[j]; x[i]=s/A[i][i]; }
+    return x;
+  }
+
+  function applyWarp(){
+    var hero=document.querySelector('.hero');
+    var hRect=hero.getBoundingClientRect();
+    var hH=hRect.height, hW=hRect.width;
+    var scr=document.getElementById('tvScreen');
+
+    // â”€â”€ Path A: user-defined zones in IMAGE-FRACTION coordinates â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Zones are fractions of the displayed background image (same space as Q).
+    // We convert them to container pixels using live image geometry so they
+    // track the device screen correctly at every viewport width and zoom level.
+    var sz = window._screenZones;
+    if(sz && sz.tl && sz.tr && sz.br && sz.bl){
+      // Image geometry matches CSS: desktop = auto 86% right-centre, mobile = 125% top-centre
+      var imgH2, imgW2, ix2, iy2;
+      var bgW2 = (window._bgW > 0) ? window._bgW : 1600;
+      var bgH2 = (window._bgH > 0) ? window._bgH : 1066;
+      if(window.innerWidth <= 900){
+        imgW2 = hW * 1.25;
+        imgH2 = imgW2 * (bgH2 / bgW2);
+        ix2   = (hW - imgW2) / 2;
+        iy2   = 0;
+      } else {
+        var scale2 = Math.max(hW / bgW2, hH / bgH2);
+        imgW2 = bgW2 * scale2;
+        imgH2 = bgH2 * scale2;
+        ix2   = hW - imgW2;
+        iy2   = (hH - imgH2) * 0.5;
+      }
+      function zp(f){ return [ix2 + f[0]*imgW2, iy2 + f[1]*imgH2]; }
+      var ptl=zp(sz.tl), ptr=zp(sz.tr), pbr=zp(sz.br), pbl=zp(sz.bl);
+      var ax=[ptl[0],ptr[0],pbr[0],pbl[0]], ay=[ptl[1],ptr[1],pbr[1],pbl[1]];
+      var bx0=Math.min.apply(null,ax), bx1=Math.max.apply(null,ax);
+      var by0=Math.min.apply(null,ay), by1=Math.max.apply(null,ay);
+      var w=bx1-bx0, h=by1-by0;
+      if(w<10||h<10){ /* degenerate quad â€” fall through to default */ }
+      else {
+      scr.style.left  = bx0+'px'; scr.style.right='auto'; scr.style.top=by0+'px';
+      scr.style.width = w+'px';   scr.style.height=h+'px';
+      warp.style.width= w+'px';   warp.style.height=h+'px';
+      scr.style.transform='none';
+      var bfrac=sz.bannerFrac!=null?sz.bannerFrac:0.24;
+      document.documentElement.style.setProperty('--tv-banner-w',(bfrac*100).toFixed(2)+'%');
+      var dst={
+        TL:[ptl[0]-bx0,ptl[1]-by0], TR:[ptr[0]-bx0,ptr[1]-by0],
+        BR:[pbr[0]-bx0,pbr[1]-by0], BL:[pbl[0]-bx0,pbl[1]-by0]
+      };
+      var src=[[0,0],[w,0],[w,h],[0,h]];
+      var dpts=[dst.TL,dst.TR,dst.BR,dst.BL];
+      var A=[], bb=[];
+      for(var i=0;i<4;i++){
+        var sx2=src[i][0],sy2=src[i][1],dx2=dpts[i][0],dy2=dpts[i][1];
+        A.push([sx2,sy2,1,0,0,0,-sx2*dx2,-sy2*dx2]); bb.push(dx2);
+        A.push([0,0,0,sx2,sy2,1,-sx2*dy2,-sy2*dy2]); bb.push(dy2);
+      }
+      var H=solve(A,bb);
+      var m=[H[0],H[3],0,H[6],H[1],H[4],0,H[7],0,0,1,0,H[2],H[5],0,1];
+      warp.style.transform='matrix3d('+m.join(',')+')';
+      return;
+      } // end else (non-degenerate quad)
+    }
+
+    // â”€â”€ Path B: fallback â€” original image-fraction positioning â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    var imgW, imgH, ix=0, iy=0;
+    var bgWb = (window._bgW > 0) ? window._bgW : 1600;
+    var bgHb = (window._bgH > 0) ? window._bgH : 1066;
+    if(window.innerWidth <= 900){
+      var mzoom = 1.25;
+      imgW = hW * mzoom; imgH = imgW * (bgHb / bgWb);
+      ix = (hW - imgW)/2; iy = 0;
+    } else {
+      if(hH < 400){ warp.style.transform='none'; return; }
+      var cfg = window._heroBgCfg;
+      if(cfg){
+        var deskZoom = cfg.zoom / 100;
+        var deskPosX = cfg.posX / 100;
+        var deskPosY = cfg.posY / 100;
+        imgH = hH * deskZoom; imgW = bgWb*(imgH/bgHb);
+        ix = (hW - imgW) * deskPosX;
+        iy = (hH - imgH) * deskPosY;
+      } else {
+        var scale = Math.max(hW / bgWb, hH / bgHb);
+        imgW = bgWb * scale;
+        imgH = bgHb * scale;
+        ix = hW - imgW;
+        iy = (hH - imgH) * 0.5;
+      }
+    }
+    var w=(FX1-FX0)*imgW, h=(FY1-FY0)*imgH;
+    scr.style.left   = (ix + FX0*imgW + 5 - 1 + 2)+'px';
+    scr.style.right  = 'auto';
+    scr.style.top    = (iy + FY0*imgH - 10 - 1)+'px';
+    scr.style.width  = (w+5)+'px';
+    scr.style.height = (h+2)+'px';
+    warp.style.width  = (w+5)+'px';
+    warp.style.height = (h+2)+'px';
+    scr.style.transform = 'rotate(-2deg)';
+    var dst2 = {
+      TL:[(Q.TL[0]-FX0)*imgW,(Q.TL[1]-FY0)*imgH],
+      TR:[(Q.TR[0]-FX0)*imgW,(Q.TR[1]-FY0)*imgH],
+      BR:[(Q.BR[0]-FX0)*imgW,(Q.BR[1]-FY0)*imgH],
+      BL:[(Q.BL[0]-FX0)*imgW,(Q.BL[1]-FY0)*imgH]
+    };
+    var src2=[[0,0],[w,0],[w,h],[0,h]];
+    var dpts2=[dst2.TL,dst2.TR,dst2.BR,dst2.BL];
+    var A2=[], bb2=[];
+    for(var i=0;i<4;i++){
+      var sx=src2[i][0], sy=src2[i][1], dx=dpts2[i][0], dy=dpts2[i][1];
+      A2.push([sx,sy,1,0,0,0,-sx*dx,-sy*dx]); bb2.push(dx);
+      A2.push([0,0,0,sx,sy,1,-sx*dy,-sy*dy]); bb2.push(dy);
+    }
+    var H2=solve(A2,bb2);
+    var m2=[H2[0],H2[3],0,H2[6], H2[1],H2[4],0,H2[7], 0,0,1,0, H2[2],H2[5],0,1];
+    warp.style.transform='matrix3d('+m2.join(',')+')';
+  }
+  window._taxiWarp = applyWarp;
+  window.addEventListener('resize', applyWarp);
+
+  // applyWarp needs both: (1) correct bg dimensions and (2) zone coordinates.
+  // _bgDone is set by the admin-bg loader (after the final background is applied).
+  // _zonesDone is set when the zones fetch returns.
+  // Neither fires applyWarp until both are ready.
+  window._bgDone = false;
+  var _zonesDone = false;
+  window._tryWarp = function(){ if(window._bgDone && _zonesDone) applyWarp(); };
+
+  fetch('/api/screen-zones').then(function(r){ return r.ok ? r.json() : null; }).then(function(z){
+    if(z) window._screenZones = z;
+    _zonesDone = true; window._tryWarp();
+  }).catch(function(){ _zonesDone = true; window._tryWarp(); });
+
+  // ===== Playlist: each video plays with its paired banner image on the right =====
+  // Files in assets/: 1.mp4 â€¦ 5.mp4 (videos), 2.png â€¦ 5.png (banners).
+  // Video 1 has no banner â†’ it plays full-screen for that segment.
+  var bImg = document.getElementById('tvBannerImg');
+  var bSide = document.getElementById('tvSide');
+  var pairs = [
+    { video: 'assets/1.mp4' },
+    { video: 'assets/2.mp4', banner: 'assets/2.png' },
+    { video: 'assets/3.mp4', banner: 'assets/3.png' },
+    { video: 'assets/4.mp4', banner: 'assets/4.png' },
+    { video: 'assets/5.mp4', banner: 'assets/5.png' }
+  ];
+
+  // Load default assets and apply them: default video â†’ fallback area; default banner â†’ side panel fallback
+  fetch('/api/hero-media').then(function(r){ return r.ok ? r.json() : null; }).then(function(m){
+    if(!m) return;
+    if(m.defaults && m.defaults.video){
+      var fb = document.querySelector('.tv-fallback');
+      if(fb){
+        var dv = document.createElement('video');
+        dv.src = 'assets/default.mp4'; dv.autoplay = true; dv.muted = true;
+        dv.loop = true; dv.playsInline = true;
+        dv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:2;';
+        fb.appendChild(dv);
+      }
+    }
+    if(m.defaults && m.defaults.banner){
+      window._defaultBannerSrc = 'assets/default-banner.png';
+    }
+  }).catch(function(){});
+
+  function setBanner(i){
+    if(!bSide) return;
+    bSide.classList.remove('hide');
+    if(pairs[i].banner){
+      bImg.src = pairs[i].banner;
+      bImg.style.display = 'block';
+    } else if(window._defaultBannerSrc){
+      bImg.src = window._defaultBannerSrc;
+      bImg.style.display = 'block';
+    } else {
+      bImg.removeAttribute('src');
+      bImg.style.display = 'none';       // no banner â†’ branded fallback shows in this region
+    }
+  }
+
+  var vi = 0, failStreak = 0, watchdog = null, loadToken = 0, curObjURL = null;
+  function stopWatch(){ if(watchdog){ clearTimeout(watchdog); watchdog = null; } }
+
+  function loadPair(i){
+    stopWatch();
+    setBanner(i);
+    var token = ++loadToken;
+    // Fetch the file as a Blob and play via an object URL. The preview/host may
+    // not support HTTP range requests (no Accept-Ranges), which makes <video>
+    // stall on a direct src; a blob URL has full local range support. This also
+    // works in the standalone export where the mp4 is an inlined data: URL.
+    fetch(pairs[i].video).then(function(r){
+      if(!r.ok) throw new Error('http '+r.status);
+      return r.blob();
+    }).then(function(blob){
+      if(token !== loadToken) return;            // superseded by a newer load
+      if(curObjURL){ URL.revokeObjectURL(curObjURL); }
+      curObjURL = URL.createObjectURL(blob);
+      v.src = curObjURL;
+      v.load();
+      var pv = v.play(); if(pv && pv.catch){ pv.catch(function(){}); }
+    }).catch(function(){ if(token === loadToken) advance(); });
+    // safety net if a blob still won't decode
+    watchdog = setTimeout(function(){
+      if(token === loadToken && v.readyState < 2){ advance(); }
+    }, 10000);
+  }
+
+  function advance(){
+    failStreak++;
+    if(failStreak > pairs.length){   // a full pass failed (no files yet) â†’ idle on fallback
+      stopWatch();
+      v.removeAttribute('src'); v.load();
+      return;
+    }
+    vi = (vi + 1) % pairs.length;
+    setTimeout(function(){ loadPair(vi); }, 500);
+  }
+
+  v.addEventListener('playing', function(){ failStreak = 0; stopWatch(); });
+  // when the MAIN video ends, slide BOTH to the next pair
+  v.addEventListener('ended', function(){
+    vi = (vi + 1) % pairs.length;
+    loadPair(vi);
+  });
+  v.addEventListener('error', advance);
+
+  // Defer the first fetch until after window load so video preloading never
+  // blocks the page's load event.
+  function startTV(){ if(pairs.length){ loadPair(0); } }
+  if(document.readyState === 'complete'){ setTimeout(startTV, 400); }
+  else { window.addEventListener('load', function(){ setTimeout(startTV, 400); }); }
+})();
+</script>
+
+<script src="/i18n.js"></script>
+
+<!-- ===== Tweaks panel ===== -->
+<div id="tweaks-root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#F7B500",
+  "headline": "Grotesk",
+  "mood": "Midnight"
+}/*EDITMODE-END*/;
+
+const MOODS = { "Midnight": "#0c0c0c", "Charcoal": "#15110a", "Slate": "#0c1119" };
+
+function TaxiTweaks(){
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(() => {
+    const r = document.documentElement;
+    r.style.setProperty('--yellow', t.accent);
+    r.style.setProperty('--black', MOODS[t.mood] || MOODS.Midnight);
+    document.body.dataset.headline = t.headline;
+  }, [t.accent, t.mood, t.headline]);
+
+  return (
+    <TweaksPanel>
+      <TweakSection label="Brand" />
+      <TweakColor label="Accent" value={t.accent}
+        options={["#F7B500", "#FF7A1A", "#C7F23A", "#19D3C5"]}
+        onChange={(v) => setTweak('accent', v)} />
+      <TweakSection label="Headlines" />
+      <TweakRadio label="Type" value={t.headline}
+        options={["Grotesk", "Editorial", "Poster"]}
+        onChange={(v) => setTweak('headline', v)} />
+      <TweakSection label="Surface" />
+      <TweakRadio label="Mood" value={t.mood}
+        options={["Midnight", "Charcoal", "Slate"]}
+        onChange={(v) => setTweak('mood', v)} />
+    </TweaksPanel>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TaxiTweaks />);
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/api/brand-logos')
+    .then(function(r) { return r.ok ? r.json() : {}; })
+    .then(function(data) {
+      var logos = Array.isArray(data.logos) ? data.logos : (Array.isArray(data) ? data : []);
+      if (!logos.length) return;
+      var container = document.querySelector('.brands-logos');
+      if (!container) return;
+      var size  = data.size  || 36;
+      var color = data.color || 'grey';
+      var gap   = (typeof data.gap === 'number') ? data.gap : 10;
+      var dynSty = document.getElementById('__bl-style') || document.createElement('style');
+      dynSty.id  = '__bl-style';
+      dynSty.textContent = '.brands-logos{gap:' + gap + 'px!important}';
+      if (!dynSty.parentNode) document.head.appendChild(dynSty);
+      var style = 'height:' + size + 'px;';
+      if (color === 'grey')       style += 'filter:grayscale(1);opacity:0.7;';
+      else if (color === 'white') style += 'filter:brightness(0) invert(1);opacity:0.85;';
+      else                        style += 'opacity:0.85;';
+      container.innerHTML = logos.map(function(src) {
+        return '<img src="' + src + '" class="brand-logo-img" style="' + style + '" alt="">';
+      }).join('');
+    })
+    .catch(function() {});
+});
+</script>
+
+<script src="hero-bg.js"></script>
+
+<!-- ===== Live Zone Editor (active only when ?editZones=1) ===== -->
+<script>
+(function(){
+  if(!location.search.includes('editZones=1')) return;
+
+  var ZE_DEFAULT = {
+    tl:[0.6442,0.3273], tr:[0.7632,0.2926],
+    br:[0.7608,0.4410], bl:[0.6411,0.4542],
+    bannerFrac:0.24
+  };
+
+  function boot(saved){
+    var hero = document.querySelector('.hero');
+    if(!hero) return;
+
+    var state = {
+      tl:[...(saved&&saved.tl||ZE_DEFAULT.tl)],
+      tr:[...(saved&&saved.tr||ZE_DEFAULT.tr)],
+      br:[...(saved&&saved.br||ZE_DEFAULT.br)],
+      bl:[...(saved&&saved.bl||ZE_DEFAULT.bl)],
+      bannerFrac: saved&&saved.bannerFrac!=null ? saved.bannerFrac : ZE_DEFAULT.bannerFrac
+    };
+
+    // Build SVG overlay
+    var NS = 'http://www.w3.org/2000/svg';
+    function el(tag,attrs){
+      var e = document.createElementNS(NS,tag);
+      Object.keys(attrs||{}).forEach(function(k){ e.setAttribute(k,attrs[k]); });
+      return e;
+    }
+    var svg = el('svg',{});
+    svg.style.cssText='position:absolute;inset:0;width:100%;height:100%;z-index:200;overflow:visible;';
+
+    var dimRect = el('rect',{x:0,y:0,width:'100%',height:'100%',fill:'rgba(0,0,0,0.35)'});
+    svg.appendChild(dimRect);
+
+    var vPoly  = el('polygon',{fill:'rgba(229,57,53,0.28)',stroke:'#e53935','stroke-width':'2'});
+    var bPoly  = el('polygon',{fill:'rgba(67,160,71,0.28)', stroke:'#43a047','stroke-width':'2'});
+    var outline= el('polygon',{fill:'none',stroke:'#F7B500','stroke-width':'2','stroke-dasharray':'6,3'});
+    var sLine  = el('line',{stroke:'rgba(255,255,255,0.85)','stroke-width':'2','stroke-dasharray':'5,4'});
+    svg.appendChild(vPoly); svg.appendChild(bPoly);
+    svg.appendChild(outline); svg.appendChild(sLine);
+
+    function lbl(txt,fill){
+      var t=el('text',{'text-anchor':'middle','dominant-baseline':'middle','font-size':'12',
+        'font-weight':'900','letter-spacing':'1.5','pointer-events':'none',fill:fill});
+      t.textContent=txt; svg.appendChild(t); return t;
+    }
+    var vLbl=lbl('VIDEO','#ff8a80'), bLbl=lbl('BANNER','#69db7c');
+
+    function ch(cursor,color){
+      var c=el('circle',{r:'12',fill:color||'white',stroke:'#000','stroke-width':'2.5'});
+      c.style.cursor=cursor; c.style.filter='drop-shadow(0 0 4px rgba(0,0,0,0.8))';
+      svg.appendChild(c); return c;
+    }
+    var hTL=ch('move','#F7B500'), hTR=ch('move','#F7B500'), hBR=ch('move','#F7B500'), hBL=ch('move','#F7B500'), hSplit=ch('ew-resize','white');
+    var corners = {tl:hTL,tr:hTR,br:hBR,bl:hBL};
+
+    // Hide TV screen overlay while editing so zone handles are clearly visible
+    var tvScr = document.getElementById('tvScreen');
+    if(tvScr) tvScr.style.visibility='hidden';
+
+    hero.style.position='relative';
+    hero.appendChild(svg);
+
+    // Image geometry â€” reads window._bgW/H (set by detectBgSize) so
+    // zone handles and applyWarp always use identical geometry.
+    function imgRect(){
+      var r=hero.getBoundingClientRect();
+      var bgW = (window._bgW > 0) ? window._bgW : 1600;
+      var bgH = (window._bgH > 0) ? window._bgH : 1066;
+      var iH, iW, ix, iy;
+      if(window.innerWidth <= 900){
+        iW = r.width * 1.25;
+        iH = iW * (bgH / bgW);
+        ix = (r.width - iW) / 2;
+        iy = 0;
+      } else {
+        var scale = Math.max(r.width / bgW, r.height / bgH);
+        iW = bgW * scale;
+        iH = bgH * scale;
+        ix = r.width - iW;
+        iy = (r.height - iH) * 0.5;
+      }
+      return {x:ix, y:iy, w:iW, h:iH};
+    }
+    function fToPx(f){ var img=imgRect(); return [img.x+f[0]*img.w, img.y+f[1]*img.h]; }
+    function pxToF(x,y){ var img=imgRect(); return [(x-img.x)/img.w, (y-img.y)/img.h]; }
+    function lerp(a,b,t){ return [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t]; }
+    function pts(p){ return p.join(','); }
+
+    function redraw(){
+      var tl=fToPx(state.tl),tr=fToPx(state.tr),br=fToPx(state.br),bl=fToPx(state.bl);
+      var f=1-state.bannerFrac;
+      var st=lerp(tl,tr,f), sb=lerp(bl,br,f), sm=lerp(st,sb,0.5);
+      vPoly.setAttribute('points',[pts(tl),pts(st),pts(sb),pts(bl)].join(' '));
+      bPoly.setAttribute('points',[pts(st),pts(tr),pts(br),pts(sb)].join(' '));
+      outline.setAttribute('points',[pts(tl),pts(tr),pts(br),pts(bl)].join(' '));
+      sLine.setAttribute('x1',st[0]);sLine.setAttribute('y1',st[1]);
+      sLine.setAttribute('x2',sb[0]);sLine.setAttribute('y2',sb[1]);
+      [['tl',tl],['tr',tr],['br',br],['bl',bl]].forEach(function(e){
+        corners[e[0]].setAttribute('cx',e[1][0]); corners[e[0]].setAttribute('cy',e[1][1]);
+      });
+      hSplit.setAttribute('cx',sm[0]); hSplit.setAttribute('cy',sm[1]);
+      var vc=[(tl[0]+st[0]+sb[0]+bl[0])/4,(tl[1]+st[1]+sb[1]+bl[1])/4];
+      var bc=[(st[0]+tr[0]+br[0]+sb[0])/4,(st[1]+tr[1]+br[1]+sb[1])/4];
+      vLbl.setAttribute('x',vc[0]); vLbl.setAttribute('y',vc[1]);
+      bLbl.setAttribute('x',bc[0]); bLbl.setAttribute('y',bc[1]);
+    }
+    redraw();
+    window.addEventListener('resize',redraw);
+
+    // Drag
+    var drag=null;
+    Object.keys(corners).forEach(function(c){
+      corners[c].addEventListener('mousedown',function(e){
+        e.preventDefault();e.stopPropagation();drag={type:'corner',corner:c};
+      });
+    });
+    hSplit.addEventListener('mousedown',function(e){
+      e.preventDefault();e.stopPropagation();
+      drag={type:'split',sx:e.clientX,sf:state.bannerFrac};
+    });
+    document.addEventListener('mousemove',function(e){
+      if(!drag)return;
+      if(drag.type==='corner'){
+        var r=hero.getBoundingClientRect();
+        state[drag.corner]=pxToF(e.clientX-r.left,e.clientY-r.top);
+      } else {
+        // Scale split drag by image width so bannerFrac is image-relative
+        var dx=(e.clientX-drag.sx)/imgRect().w;
+        state.bannerFrac=Math.max(0.05,Math.min(0.6,drag.sf-dx));
+      }
+      redraw();
+    });
+    document.addEventListener('mouseup',function(){ drag=null; });
+
+    // Toolbar
+    var bar=document.createElement('div');
+    bar.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;'+
+      'background:rgba(12,12,12,0.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.18);'+
+      'border-radius:12px;padding:12px 18px;display:flex;align-items:center;gap:12px;font-family:sans-serif;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,0.5);';
+    bar.innerHTML=
+      '<span style="color:#fff;font-size:12px;font-weight:800;letter-spacing:1px;">ZONE EDITOR</span>'+
+      '<span style="color:#666;font-size:11px;">Drag corners Â· Drag white line to split video/banner Â· Zoom with Ctrl +/âˆ’</span>'+
+      '<button id="zeSaveBtn" style="background:#F7B500;color:#000;border:none;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.3px;">Save Zones</button>'+
+      '<button id="zeResetBtn" style="background:transparent;color:#aaa;border:1px solid rgba(255,255,255,0.2);border-radius:6px;padding:8px 12px;font-size:12px;cursor:pointer;">Reset</button>'+
+      '<button id="zeExitBtn" style="background:transparent;color:#666;border:none;font-size:18px;cursor:pointer;padding:4px 6px;line-height:1;" title="Exit">&#x2715;</button>';
+    document.body.appendChild(bar);
+
+    document.getElementById('zeSaveBtn').addEventListener('click',function(){
+      var btn=this;
+      fetch('/api/screen-zones',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(state)
+      }).then(function(r){
+        if(r.ok){
+          btn.textContent='Saved!'; btn.style.background='#4caf50';
+          window._screenZones=JSON.parse(JSON.stringify(state));
+          if(window._taxiWarp) window._taxiWarp();
+          setTimeout(function(){ btn.textContent='Save Zones'; btn.style.background='#F7B500'; },2000);
+        } else { btn.textContent='Failed'; setTimeout(function(){ btn.textContent='Save Zones'; },2000); }
+      });
+    });
+    document.getElementById('zeResetBtn').addEventListener('click',function(){
+      state={tl:[...ZE_DEFAULT.tl],tr:[...ZE_DEFAULT.tr],br:[...ZE_DEFAULT.br],bl:[...ZE_DEFAULT.bl],bannerFrac:ZE_DEFAULT.bannerFrac};
+      redraw();
+    });
+    document.getElementById('zeExitBtn').addEventListener('click',function(){
+      svg.remove(); bar.remove(); window.removeEventListener('resize',redraw);
+      if(tvScr) tvScr.style.visibility='';
+      if(window.parent!==window) window.parent.postMessage('zeClose','*');
+    });
+  }
+
+  // Wait for page + auth check
+  function init(){
+    fetch('/api/auth/check').then(function(r){return r.json();}).then(function(a){
+      if(!a.admin) return;
+      fetch('/api/screen-zones').then(function(r){return r.ok?r.json():null;}).then(boot).catch(function(){boot(null);});
+    }).catch(function(){});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+  else init();
+})();
+</script>
+</body>
+</html>

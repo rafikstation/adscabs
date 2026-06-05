@@ -1,0 +1,166 @@
+{
+  "nav-link": {
+    "size": "15",
+    "font": "sans",
+    "color": "#e9e9e9"
+  },
+  "nav-btn": {
+    "size": "16",
+    "font": "sans",
+    "color": "#ffffff"
+  },
+  "sec-h": {
+    "size": "40",
+    "font": "sans",
+    "color": "#c0bfbf"
+  },
+  "reach-text": {
+    "size": "15",
+    "font": "sans",
+    "color": "#6f6f6f"
+  },
+  "stat-num": {
+    "size": "23",
+    "font": "sans",
+    "color": "#ffffff"
+  },
+  "stat-lab": {
+    "size": "12.5",
+    "font": "sans",
+    "color": "#9a9a9a"
+  },
+  "page-hero-h1": {
+    "size": "60",
+    "font": "sans",
+    "color": "#ffffff"
+  },
+  "page-hero-p": {
+    "size": "17",
+    "font": "sans",
+    "color": "#cfcfcf"
+  },
+  "page-hero-crumbs": {
+    "size": "12.5",
+    "font": "sans",
+    "color": "#7f7f7f"
+  },
+  "kicker": {
+    "size": "12",
+    "font": "sans",
+    "color": "#eb5e28"
+  },
+  "sec-head-h2": {
+    "size": "36",
+    "font": "sans",
+    "color": "#161616"
+  },
+  "sec-head-p": {
+    "size": "15",
+    "font": "sans",
+    "color": "#6f6f6f"
+  },
+  "card-h3": {
+    "size": "18",
+    "font": "sans",
+    "color": "#161616"
+  },
+  "card-p": {
+    "size": "13.5",
+    "font": "sans",
+    "color": "#6f6f6f"
+  },
+  "split-h2": {
+    "size": "32",
+    "font": "sans",
+    "color": "#161616"
+  },
+  "split-p": {
+    "size": "15",
+    "font": "sans",
+    "color": "#6f6f6f"
+  },
+  "ticks-li": {
+    "size": "14.5",
+    "font": "sans",
+    "color": "#6f6f6f"
+  },
+  "step-h3": {
+    "size": "17",
+    "font": "sans",
+    "color": "#161616"
+  },
+  "step-p": {
+    "size": "13.5",
+    "font": "sans",
+    "color": "#6f6f6f"
+  },
+  "foot-h4": {
+    "size": "12",
+    "font": "sans",
+    "color": "#ffffff"
+  },
+  "foot-links": {
+    "size": "13.5",
+    "font": "sans",
+    "color": "#9a9a9a"
+  },
+  "foot-contact": {
+    "size": "13.5",
+    "font": "sans",
+    "color": "#bdbdbd"
+  },
+  "foot-brand": {
+    "size": "15",
+    "font": "sans",
+    "color": "#eb5e28"
+  },
+  "btn-size": {
+    "size": "14",
+    "font": "sans"
+  },
+  "btn-primary-bg": {
+    "color": "#eb5e28"
+  },
+  "btn-primary-text": {
+    "color": "#0c0c0c"
+  },
+  "btn-dark-bg": {
+    "color": "#0c0c0c"
+  },
+  "btn-dark-text": {
+    "color": "#ffffff"
+  },
+  "btn-outline-text": {
+    "color": "#ffffff"
+  },
+  "btn-outline-border": {
+    "color": "#ffffff"
+  },
+  "btn-outline-dk-text": {
+    "color": "#0c0c0c"
+  },
+  "btn-outline-dk-brd": {
+    "color": "#0c0c0c"
+  },
+  "sec-highlight": {
+    "color": "#eb5e28"
+  },
+  "card-rule": {
+    "color": "#eb5e28"
+  },
+  "brands-label": {
+    "color": "#eb5e28"
+  },
+  "cta-bg": {
+    "color": "#eb5e28"
+  },
+  "foot-contact-icon": {
+    "color": "#eb5e28"
+  },
+  "foot-menu-hover": {
+    "color": "#eb5e28"
+  },
+  "social-hover-bg": {
+    "color": "#eb5e28"
+  }
+}
