@@ -322,6 +322,9 @@ body {
 .hb-pos-label { font-size: 10.5px; font-weight: 600; color: var(--txt-muted); text-transform: uppercase; letter-spacing: .3px; width: 56px; flex-shrink: 0; }
 .hb-slider { flex: 1; accent-color: var(--yellow); cursor: pointer; height: 4px; }
 .hb-pos-val { font-size: 11px; color: var(--txt); width: 36px; text-align: right; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.hb-fade-row { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+.hb-fade-header { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.hb-fade-hint { font-size: 10.5px; color: var(--txt-muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
 
 /* ── Screen zone editor ─────────────────────────────────────────────────────── */
 .zone-editor { grid-column: 1 / -1; }

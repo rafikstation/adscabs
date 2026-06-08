@@ -142,11 +142,23 @@ image-slot{--radius:0;}
    ========================================================================== */
 
 /* --- Page hero band (dark, shorter than the Home hero) --- */
-.page-hero{position:relative;background:var(--black);overflow:hidden;background-size:contain;background-position:center;background-repeat:no-repeat;}
+.page-hero{position:relative;background:var(--black);overflow:hidden;background-size:cover;background-position:right top;background-repeat:no-repeat;}
 .page-hero::before{content:"";position:absolute;inset:0;background:
    radial-gradient(120% 130% at 88% 0%,rgba(247,181,0,.16),rgba(247,181,0,0) 46%),
    linear-gradient(180deg,#141414 0%,#0c0c0c 100%);}
-.page-hero.has-bg-image::before{background:linear-gradient(135deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 100%);}
+.page-hero.has-bg-image::before{
+  background:
+    linear-gradient(90deg,
+      #0c0c0c 0%,
+      #0c0c0c 18%,
+      rgba(12,12,12,var(--hero-fade-opacity,.75)) 42%,
+      transparent 64%
+    ),
+    linear-gradient(90deg,
+      transparent 50%,
+      rgba(235,94,40,.30) 100%
+    );
+}
 .page-hero .wrap{position:relative;z-index:2;padding-top:50px;padding-bottom:50px;}
 /* Hero background upload controls (admin only) */
 .hero-bg-controls{position:absolute;bottom:18px;right:18px;z-index:5;display:flex;gap:8px;align-items:center;}

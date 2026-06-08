@@ -125,76 +125,89 @@ const SCHEMA = [
       {
         title: 'Page hero',
         fields: [
-          { key: 'about.page_crumb',         label: 'Breadcrumb text',      type: 'input' },
-          { key: 'about.page_kicker',        label: 'Kicker',               type: 'input' },
-          { key: 'about.hero_h1_line1',      label: 'H1: Line 1',           type: 'input' },
-          { key: 'about.hero_h1_line2_prefix', label: 'H1: Line 2 prefix',  type: 'input' },
-          { key: 'about.hero_h1_highlight',  label: 'H1: Highlighted word', type: 'input' },
-          { key: 'about.hero_sub',           label: 'Subtitle',             type: 'textarea', full: true },
+          { key: 'about.page_crumb',        label: 'Breadcrumb text',      type: 'input' },
+          { key: 'about.page_kicker',       label: 'Kicker',               type: 'input' },
+          { key: 'about.hero_h1_line1',     label: 'H1: Line 1',           type: 'input', full: true },
+          { key: 'about.hero_h1_line2',     label: 'H1: Line 2 prefix',    type: 'input', full: true },
+          { key: 'about.hero_h1_highlight', label: 'H1: Highlighted word', type: 'input' },
+          { key: 'about.hero_sub',          label: 'Subtitle',             type: 'textarea', full: true },
         ]
       },
       {
-        title: 'Story section',
+        title: 'Story — Het verhaal (left column)',
         fields: [
-          { key: 'about.story_kicker', label: 'Kicker',    type: 'input' },
-          { key: 'about.story_h2',     label: 'Heading',   type: 'input', full: true },
-          { key: 'about.story_p1',     label: 'Paragraph 1', type: 'textarea', full: true },
-          { key: 'about.story_p2',     label: 'Paragraph 2', type: 'textarea', full: true },
-          { key: 'about.story_btn',    label: 'Button',    type: 'input' },
+          { key: 'about.story_left_kicker', label: 'Kicker',      type: 'input' },
+          { key: 'about.story_left_h2',     label: 'Subheading',  type: 'input', full: true },
+          { key: 'about.story_left_p1',     label: 'Paragraph 1', type: 'textarea', full: true },
+          { key: 'about.story_left_p2',     label: 'Paragraph 2', type: 'textarea', full: true },
+          { key: 'about.story_left_p3',     label: 'Paragraph 3', type: 'textarea', full: true },
         ]
       },
       {
-        title: 'Metrics strip',
+        title: 'Story — De missie (right column)',
         fields: [
-          { key: 'about.metric1_num', label: 'Metric 1: Number', type: 'input' },
-          { key: 'about.metric1_lab', label: 'Metric 1: Label',  type: 'input' },
-          { key: 'about.metric2_num', label: 'Metric 2: Number', type: 'input' },
-          { key: 'about.metric2_lab', label: 'Metric 2: Label',  type: 'input' },
-          { key: 'about.metric3_num', label: 'Metric 3: Number', type: 'input' },
-          { key: 'about.metric3_lab', label: 'Metric 3: Label',  type: 'input' },
-          { key: 'about.metric4_num', label: 'Metric 4: Number', type: 'input' },
-          { key: 'about.metric4_lab', label: 'Metric 4: Label',  type: 'input' },
+          { key: 'about.story_right_kicker', label: 'Kicker',      type: 'input' },
+          { key: 'about.story_right_h2',     label: 'Subheading',  type: 'input', full: true },
+          { key: 'about.story_right_p1',     label: 'Paragraph 1', type: 'textarea', full: true },
+          { key: 'about.story_right_p2',     label: 'Paragraph 2', type: 'textarea', full: true },
         ]
       },
       {
-        title: 'Values section',
+        title: 'Pull quote',
         fields: [
-          { key: 'about.values_kicker', label: 'Kicker',   type: 'input' },
-          { key: 'about.values_h2',     label: 'Heading',  type: 'input' },
-          { key: 'about.values_sub',    label: 'Subtext',  type: 'textarea', full: true },
-          { key: 'about.value1_title', label: 'Value 1: Title', type: 'input' },
-          { key: 'about.value1_text',  label: 'Value 1: Text',  type: 'textarea' },
-          { key: 'about.value2_title', label: 'Value 2: Title', type: 'input' },
-          { key: 'about.value2_text',  label: 'Value 2: Text',  type: 'textarea' },
-          { key: 'about.value3_title', label: 'Value 3: Title', type: 'input' },
-          { key: 'about.value3_text',  label: 'Value 3: Text',  type: 'textarea' },
+          { key: 'about.pull_quote', label: 'Quote text', type: 'textarea', full: true },
         ]
       },
       {
-        title: 'Mission section',
+        title: 'Growth & timeline',
         fields: [
-          { key: 'about.mission_kicker', label: 'Kicker',     type: 'input' },
-          { key: 'about.mission_h2',     label: 'Heading',    type: 'input', full: true },
-          { key: 'about.mission_text',   label: 'Paragraph',  type: 'textarea', full: true },
-          { key: 'about.tick1', label: 'Bullet 1', type: 'input', full: true },
-          { key: 'about.tick2', label: 'Bullet 2', type: 'input', full: true },
-          { key: 'about.tick3', label: 'Bullet 3', type: 'input', full: true },
+          { key: 'about.growth_kicker', label: 'Kicker',          type: 'input' },
+          { key: 'about.growth_h2',     label: 'Heading',         type: 'input', full: true },
+          { key: 'about.growth_intro',  label: 'Intro paragraph', type: 'textarea', full: true },
         ]
       },
       {
-        title: 'Team section',
+        title: 'Timeline item 1 — Begin',
         fields: [
-          { key: 'about.team_kicker', label: 'Kicker',   type: 'input' },
-          { key: 'about.team_h2',     label: 'Heading',  type: 'input', full: true },
-          { key: 'about.team_sub',    label: 'Subtext',  type: 'textarea', full: true },
-          { key: 'about.team1_name', label: 'Member 1: Name', type: 'input' },
-          { key: 'about.team1_role', label: 'Member 1: Role', type: 'input' },
-          { key: 'about.team2_name', label: 'Member 2: Name', type: 'input' },
-          { key: 'about.team2_role', label: 'Member 2: Role', type: 'input' },
-          { key: 'about.team3_name', label: 'Member 3: Name', type: 'input' },
-          { key: 'about.team3_role', label: 'Member 3: Role', type: 'input' },
-          { key: 'about.team4_name', label: 'Member 4: Name', type: 'input' },
-          { key: 'about.team4_role', label: 'Member 4: Role', type: 'input' },
+          { key: 'about.tl1_label', label: 'Label',       type: 'input' },
+          { key: 'about.tl1_title', label: 'Title',       type: 'input', full: true },
+          { key: 'about.tl1_text',  label: 'Description', type: 'textarea', full: true },
+        ]
+      },
+      {
+        title: 'Timeline item 2 — Nu',
+        fields: [
+          { key: 'about.tl2_label', label: 'Label',       type: 'input' },
+          { key: 'about.tl2_title', label: 'Title',       type: 'input', full: true },
+          { key: 'about.tl2_text',  label: 'Description', type: 'textarea', full: true },
+        ]
+      },
+      {
+        title: 'Timeline item 3 — Binnenkort',
+        fields: [
+          { key: 'about.tl3_label', label: 'Label',       type: 'input' },
+          { key: 'about.tl3_title', label: 'Title',       type: 'input', full: true },
+          { key: 'about.tl3_text',  label: 'Description', type: 'textarea', full: true },
+        ]
+      },
+      {
+        title: 'Amsterdam banner',
+        fields: [
+          { key: 'about.ams_city', label: 'City name',   type: 'input' },
+          { key: 'about.ams_text', label: 'Description', type: 'textarea', full: true },
+        ]
+      },
+      {
+        title: 'Value cards',
+        fields: [
+          { key: 'about.card1_title', label: 'Card 1: Title', type: 'input' },
+          { key: 'about.card1_text',  label: 'Card 1: Text',  type: 'textarea' },
+          { key: 'about.card2_title', label: 'Card 2: Title', type: 'input' },
+          { key: 'about.card2_text',  label: 'Card 2: Text',  type: 'textarea' },
+          { key: 'about.card3_title', label: 'Card 3: Title', type: 'input' },
+          { key: 'about.card3_text',  label: 'Card 3: Text',  type: 'textarea' },
+          { key: 'about.card4_title', label: 'Card 4: Title', type: 'input' },
+          { key: 'about.card4_text',  label: 'Card 4: Text',  type: 'textarea' },
         ]
       },
       {
@@ -883,6 +896,7 @@ function buildHeroBgWidget(pageId) {
   const sliderSize = (entry && typeof entry === 'object' && entry.zoom != null) ? entry.zoom : 86;
   const sliderX    = (entry && typeof entry === 'object' && entry.posX != null) ? entry.posX : 100;
   const sliderY    = (entry && typeof entry === 'object' && entry.posY != null) ? entry.posY : 50;
+  const sliderFade = (entry && typeof entry === 'object' && entry.fade != null) ? entry.fade : 60;
 
   const wrap = document.createElement('div');
   wrap.className = 'hero-bg-widget';
@@ -898,7 +912,17 @@ function buildHeroBgWidget(pageId) {
       </button>`
     : '';
 
-  const posControlsHtml = '';
+  const posControlsHtml = hasImg ? `
+    <div class="hb-fade-row">
+      <div class="hb-fade-header">
+        <span class="hb-pos-label">Overlay</span>
+        <span class="hb-fade-hint">0 = no overlay · 100 = fully black</span>
+      </div>
+      <div class="hb-pos-row">
+        <input type="range" min="0" max="100" value="${sliderFade}" step="1" class="hb-slider js-hb-fade">
+        <span class="hb-pos-val js-hb-fade-val">${sliderFade}%</span>
+      </div>
+    </div>` : '';
 
   wrap.innerHTML = `
     <div class="hero-bg-thumb js-hb-thumb">${thumbHtml}</div>
@@ -977,6 +1001,35 @@ function buildHeroBgWidget(pageId) {
       } catch (e) {
         showToast('Remove failed: ' + e.message, 'error');
       }
+    });
+  }
+
+  // Fade slider — live value display + debounced PATCH save
+  if (hasImg) {
+    const fadeSlider = wrap.querySelector('.js-hb-fade');
+    const fadeValEl  = wrap.querySelector('.js-hb-fade-val');
+    let fadeDebounce;
+    fadeSlider.addEventListener('input', function () {
+      const val = parseInt(this.value, 10);
+      fadeValEl.textContent = val + '%';
+      clearTimeout(fadeDebounce);
+      fadeDebounce = setTimeout(async () => {
+        try {
+          const resp = await fetch('/api/hero-bg', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ page: pageId, fade: val })
+          });
+          if (resp.ok) {
+            if (heroBgs[pageId] && typeof heroBgs[pageId] === 'object') heroBgs[pageId].fade = val;
+            showToast('Overlay darkness saved', 'success');
+          } else {
+            showToast('Save failed', 'error');
+          }
+        } catch (e) {
+          showToast('Save failed: ' + e.message, 'error');
+        }
+      }, 600);
     });
   }
 

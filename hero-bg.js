@@ -9,18 +9,20 @@
     return document.querySelector('.page-hero') || document.querySelector('.hero');
   }
 
-  function applyBg(img, zoom, posX, posY) {
+  function applyBg(img, zoom, posX, posY, fade) {
     var el = getHeroBgEl();
     if (!el) return;
     if (img) {
       el.style.backgroundImage = 'url(' + JSON.stringify(img) + ')';
-      // Let CSS handle background-size/position for full responsive behaviour
       el.classList.add('has-bg-image');
+      var fadeOpacity = (fade != null ? fade : 60) / 100;
+      el.style.setProperty('--hero-fade-opacity', fadeOpacity.toFixed(2));
       window._heroBgCfg = { zoom: zoom != null ? zoom : 86, posX: posX != null ? posX : 100, posY: posY != null ? posY : 50 };
       if (window._taxiWarp) window._taxiWarp();
     } else {
       el.style.backgroundImage = '';
       el.classList.remove('has-bg-image');
+      el.style.removeProperty('--hero-fade-opacity');
       window._heroBgCfg = null;
       if (window._taxiWarp) window._taxiWarp();
     }
@@ -61,7 +63,8 @@
           var bgZoom = (bg && typeof bg === 'object' && bg.zoom != null) ? bg.zoom : null;
           var bgPosX = (bg && typeof bg === 'object' && bg.posX != null) ? bg.posX : null;
           var bgPosY = (bg && typeof bg === 'object' && bg.posY != null) ? bg.posY : null;
-          applyBg(bgImg, bgZoom, bgPosX, bgPosY);
+          var bgFade = (bg && typeof bg === 'object' && bg.fade != null) ? bg.fade : null;
+          applyBg(bgImg, bgZoom, bgPosX, bgPosY, bgFade);
         }
       }
     } catch (_) {}

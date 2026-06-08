@@ -111,6 +111,7 @@ app.post('/api/hero-bg', requireAdmin, (req, res) => {
     zoom: (prev && typeof prev === 'object' && prev.zoom != null) ? prev.zoom : 86,
     posX: (prev && typeof prev === 'object' && prev.posX != null) ? prev.posX : 100,
     posY: (prev && typeof prev === 'object' && prev.posY != null) ? prev.posY : 50,
+    fade: (prev && typeof prev === 'object' && prev.fade != null) ? prev.fade : 60,
   };
   writeHeroBgs(bgs);
   res.json({ ok: true });
@@ -118,18 +119,20 @@ app.post('/api/hero-bg', requireAdmin, (req, res) => {
 
 // Admin: update position/zoom for existing hero background
 app.patch('/api/hero-bg', requireAdmin, (req, res) => {
-  const { page, zoom, posX, posY } = req.body;
+  const { page, zoom, posX, posY, fade } = req.body;
   if (!ALLOWED_HERO_PAGES.includes(page)) return res.status(400).json({ error: 'Invalid page' });
   const bgs = readHeroBgs();
   const current = bgs[page];
   if (!current) return res.status(404).json({ error: 'No image set' });
   const img = typeof current === 'string' ? current : current.img;
+  const prev = typeof current === 'object' ? current : {};
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
   bgs[page] = {
     img,
-    zoom: typeof zoom === 'number' ? clamp(zoom, 20, 200) : 86,
-    posX: typeof posX === 'number' ? clamp(posX, 0, 100)  : 100,
-    posY: typeof posY === 'number' ? clamp(posY, 0, 100)  : 50,
+    zoom: typeof zoom === 'number' ? clamp(zoom, 20, 200) : (prev.zoom != null ? prev.zoom : 86),
+    posX: typeof posX === 'number' ? clamp(posX, 0, 100)  : (prev.posX != null ? prev.posX : 100),
+    posY: typeof posY === 'number' ? clamp(posY, 0, 100)  : (prev.posY != null ? prev.posY : 50),
+    fade: typeof fade === 'number' ? clamp(fade, 0, 100)  : (prev.fade != null ? prev.fade : 60),
   };
   writeHeroBgs(bgs);
   res.json({ ok: true });
