@@ -279,7 +279,7 @@ const TYPO_SELECTORS = {
   'reach-text':         '.reach-text',
   'stat-num':           '.stat .num',
   'stat-lab':           '.stat .lab',
-  'page-hero-h1':       '.page-hero h1',
+  'page-hero-h1':       '.page-hero h1, .hero h1',
   'page-hero-p':        '.page-hero p',
   'page-hero-crumbs':   '.page-hero .crumbs',
   'kicker':             '.kicker',
@@ -321,7 +321,7 @@ const TYPO_BG_KEYS = new Set(['card-rule', 'cta-bg', 'btn-primary-bg', 'social-h
 const TYPO_BORDER_KEYS = new Set(['btn-outline-border', 'btn-outline-dk-brd']);
 
 const TYPO_FONT_MAP = {
-  'sans':   '"Helvetica Neue", Helvetica, Arial, sans-serif',
+  'sans':   '"Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif',
   'serif':  'Georgia, "Times New Roman", Times, serif',
   'mono':   '"Courier New", Courier, monospace',
   'caveat': "'Caveat', cursive",
