@@ -189,6 +189,31 @@ app.delete('/api/slot-image', requireAdmin, (req, res) => {
   res.json({ ok: true });
 });
 
+// ── Wrap zone polygon API ─────────────────────────────────────────────────────
+const WRAP_ZONE_FILE = path.join(CONTENT_DIR, 'wrap-zone.json');
+const WRAP_ZONE_DEFAULT = {
+  poly: [[706,378],[1180,336],[1275,400],[1275,635],[1185,715],[955,750],[765,725],[690,705]],
+  iw: 1536, ih: 1024
+};
+
+function readWrapZone() {
+  if (!fs.existsSync(WRAP_ZONE_FILE)) return WRAP_ZONE_DEFAULT;
+  try { return JSON.parse(fs.readFileSync(WRAP_ZONE_FILE, 'utf8')); } catch { return WRAP_ZONE_DEFAULT; }
+}
+
+app.get('/api/wrap-zone', (req, res) => res.json(readWrapZone()));
+
+app.post('/api/wrap-zone', requireAdmin, (req, res) => {
+  const { poly, iw, ih } = req.body;
+  if (!Array.isArray(poly) || poly.length < 3) return res.status(400).json({ error: 'Need at least 3 points' });
+  const clean = poly.map(p => [Number(p[0]), Number(p[1])]);
+  if (clean.some(p => isNaN(p[0]) || isNaN(p[1]))) return res.status(400).json({ error: 'Invalid coordinates' });
+  const data = { poly: clean, iw: Number(iw) || 1536, ih: Number(ih) || 1024 };
+  if (!fs.existsSync(CONTENT_DIR)) fs.mkdirSync(CONTENT_DIR, { recursive: true });
+  fs.writeFileSync(WRAP_ZONE_FILE, JSON.stringify(data, null, 2), 'utf8');
+  res.json({ ok: true });
+});
+
 // ── Screen zones API ─────────────────────────────────────────────────────────
 // Coordinates are fractions of the DISPLAYED BACKGROUND IMAGE (same as original Q values)
 const DEFAULT_ZONES = {

@@ -235,24 +235,42 @@
   var zonePoly    = document.getElementById('wrapZonePoly');
   var stage       = document.getElementById('wrapStage');
 
-  var vehicleImg = null;
-  var artworkImg = null;
+  var vehicleImg  = null;
+  var artworkImg  = null;
+  var vehicleReady = false;
 
   canvas.width  = IW;
   canvas.height = IH;
 
-  /* Load base vehicle image — prefer admin-uploaded slot image, fall back to default */
   function loadVehicle(src) {
     vehicleImg = new Image();
-    vehicleImg.onload = function () { render(); };
+    vehicleImg.onload = function () { vehicleReady = true; render(); };
     vehicleImg.src = src;
   }
 
+  /* Load polygon from admin-saved zone (overrides defaults) */
+  fetch('/api/wrap-zone')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d && Array.isArray(d.poly) && d.poly.length >= 3) {
+        POLY = d.poly;
+        IW   = d.iw || IW;
+        IH   = d.ih || IH;
+        canvas.width  = IW;
+        canvas.height = IH;
+        var svgEl  = document.querySelector('.wrap-zone-svg');
+        var polyEl = document.getElementById('wrapZonePoly');
+        if (svgEl)  svgEl.setAttribute('viewBox', '0 0 ' + IW + ' ' + IH);
+        if (polyEl) polyEl.setAttribute('points', POLY.map(function (p) { return p[0] + ',' + p[1]; }).join(' '));
+      }
+      if (vehicleReady) render();
+    })
+    .catch(function () {});
+
+  /* Load vehicle base image — prefer admin-uploaded slot, fall back to default */
   fetch('/api/slot-image')
     .then(function (r) { return r.json(); })
-    .then(function (slots) {
-      loadVehicle(slots['adv-wrap'] || '/content/wrapping.png');
-    })
+    .then(function (slots) { loadVehicle(slots['adv-wrap'] || '/content/wrapping.png'); })
     .catch(function () { loadVehicle('/content/wrapping.png'); });
 
   /* ── Render ─────────────────────────────────────────────────────── */

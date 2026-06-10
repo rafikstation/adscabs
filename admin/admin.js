@@ -1301,6 +1301,179 @@ async function saveBrandLogos() {
   }
 }
 
+// ── Wrap zone polygon editor ──────────────────────────────────────────────────
+function buildWrapZoneEditor() {
+  const DEFAULT_POLY = [[706,378],[1180,336],[1275,400],[1275,635],[1185,715],[955,750],[765,725],[690,705]];
+  const IW = 1536, IH = 1024;
+
+  let poly = DEFAULT_POLY.map(p => [...p]);
+  let dragging = null;
+
+  const outer = document.createElement('div');
+  outer.style.cssText = 'display:flex;flex-direction:column;gap:0;width:100%;';
+  outer.innerHTML = `
+    <div class="field-label" style="margin-bottom:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      Wrap Zone Editor
+      <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:11px;color:var(--txt-muted);">
+        Drag handles · Click an edge to add a point · Right-click a handle to remove it
+      </span>
+    </div>
+    <div style="position:relative;background:#0a0a0a;border-radius:6px;overflow:hidden;" id="wzeStage">
+      <img id="wzeVehicle" src="/content/wrapping.png"
+        style="display:block;width:100%;height:auto;pointer-events:none;opacity:.92;">
+      <svg id="wzeSvg" viewBox="0 0 ${IW} ${IH}" preserveAspectRatio="none"
+        style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;cursor:crosshair;">
+        <polygon id="wzePoly"
+          fill="rgba(235,94,40,.12)" stroke="#EB5E28" stroke-width="2"
+          stroke-dasharray="8,4" vector-effect="non-scaling-stroke"/>
+        <g id="wzeHandles"></g>
+      </svg>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap;">
+      <button type="button" class="hero-bg-btn primary" id="wzeSaveBtn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+          <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+        </svg>
+        Save Zone
+      </button>
+      <button type="button" class="hero-bg-btn" id="wzeResetBtn"
+        style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);">
+        Reset to default
+      </button>
+      <span id="wzeCount" style="font-size:11px;color:var(--txt-muted);margin-left:4px;"></span>
+    </div>
+  `;
+
+  /* ── SVG coordinate helper ────────────────────────────────────────── */
+  function toSvgPt(e) {
+    const svg = outer.querySelector('#wzeSvg');
+    const r = svg.getBoundingClientRect();
+    return [
+      Math.round(Math.max(0, Math.min(IW, (e.clientX - r.left) / r.width  * IW))),
+      Math.round(Math.max(0, Math.min(IH, (e.clientY - r.top)  / r.height * IH)))
+    ];
+  }
+
+  /* ── Segment distance (for click-to-add) ─────────────────────────── */
+  function segDist(px, py, ax, ay, bx, by) {
+    const dx = bx-ax, dy = by-ay, len2 = dx*dx+dy*dy;
+    if (len2 === 0) return Math.hypot(px-ax, py-ay);
+    const t = Math.max(0, Math.min(1, ((px-ax)*dx + (py-ay)*dy) / len2));
+    return Math.hypot(px - ax - t*dx, py - ay - t*dy);
+  }
+
+  /* ── Redraw polygon + handles ────────────────────────────────────── */
+  function updateSvg() {
+    const polyEl   = outer.querySelector('#wzePoly');
+    const handles  = outer.querySelector('#wzeHandles');
+    const countEl  = outer.querySelector('#wzeCount');
+
+    polyEl.setAttribute('points', poly.map(p => p.join(',')).join(' '));
+    countEl.textContent = poly.length + ' point' + (poly.length !== 1 ? 's' : '');
+    handles.innerHTML = '';
+
+    poly.forEach((pt, idx) => {
+      const NS = 'http://www.w3.org/2000/svg';
+
+      const c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', pt[0]); c.setAttribute('cy', pt[1]);
+      c.setAttribute('r', 13);
+      c.setAttribute('fill', '#EB5E28'); c.setAttribute('stroke', '#fff');
+      c.setAttribute('stroke-width', '2'); c.setAttribute('vector-effect', 'non-scaling-stroke');
+      c.style.cursor = 'grab';
+
+      const lbl = document.createElementNS(NS, 'text');
+      lbl.setAttribute('x', pt[0]); lbl.setAttribute('y', pt[1] + 5);
+      lbl.setAttribute('text-anchor', 'middle');
+      lbl.setAttribute('fill', '#fff'); lbl.setAttribute('font-size', '14');
+      lbl.setAttribute('font-weight', '700'); lbl.setAttribute('font-family', 'monospace');
+      lbl.setAttribute('vector-effect', 'non-scaling-stroke');
+      lbl.style.pointerEvents = 'none';
+      lbl.textContent = idx + 1;
+
+      c.addEventListener('mousedown', e => {
+        e.preventDefault(); e.stopPropagation();
+        dragging = idx;
+        c.style.cursor = 'grabbing';
+      });
+
+      c.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        if (poly.length > 3) { poly.splice(idx, 1); updateSvg(); }
+        else showToast('Minimum 3 points required', 'error');
+      });
+
+      handles.appendChild(c);
+      handles.appendChild(lbl);
+    });
+
+    /* Click on SVG background / polygon edge → insert point */
+    outer.querySelector('#wzeSvg').onclick = e => {
+      if (dragging !== null) return;
+      const tag = e.target.tagName.toLowerCase();
+      if (tag === 'circle' || tag === 'text') return;
+      const [mx, my] = toSvgPt(e);
+      let best = Infinity, bestIdx = 0;
+      for (let i = 0; i < poly.length; i++) {
+        const j = (i + 1) % poly.length;
+        const d = segDist(mx, my, poly[i][0], poly[i][1], poly[j][0], poly[j][1]);
+        if (d < best) { best = d; bestIdx = j; }
+      }
+      if (best < 60) { poly.splice(bestIdx, 0, [mx, my]); updateSvg(); }
+    };
+  }
+
+  /* ── Global mouse drag ───────────────────────────────────────────── */
+  document.addEventListener('mousemove', function wzeMove(e) {
+    if (dragging === null) return;
+    if (!document.getElementById('wzeSvg')) { dragging = null; return; }
+    const [x, y] = toSvgPt(e);
+    poly[dragging] = [x, y];
+    updateSvg();
+  });
+  document.addEventListener('mouseup', function() { dragging = null; });
+
+  /* ── Save ────────────────────────────────────────────────────────── */
+  outer.querySelector('#wzeSaveBtn').addEventListener('click', async function () {
+    const btn = this;
+    btn.disabled = true; btn.textContent = 'Saving…';
+    try {
+      const r = await fetch('/api/wrap-zone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ poly, iw: IW, ih: IH })
+      });
+      const d = await r.json();
+      if (d.ok) showToast('Wrap zone saved!', 'success');
+      else showToast('Save failed: ' + (d.error || 'unknown'), 'error');
+    } catch (e) { showToast('Save failed: ' + e.message, 'error'); }
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Zone`;
+  });
+
+  /* ── Reset ───────────────────────────────────────────────────────── */
+  outer.querySelector('#wzeResetBtn').addEventListener('click', () => {
+    poly = DEFAULT_POLY.map(p => [...p]);
+    updateSvg();
+    showToast('Zone reset to default', 'success');
+  });
+
+  /* ── Load saved zone + vehicle image ─────────────────────────────── */
+  fetch('/api/wrap-zone').then(r => r.json()).then(d => {
+    if (d && Array.isArray(d.poly) && d.poly.length >= 3) poly = d.poly.map(p => [...p]);
+    updateSvg();
+  }).catch(() => updateSvg());
+
+  fetch('/api/slot-image').then(r => r.ok ? r.json() : {}).then(slots => {
+    if (slots['adv-wrap']) outer.querySelector('#wzeVehicle').src = slots['adv-wrap'];
+  }).catch(() => {});
+
+  updateSvg();
+  return outer;
+}
+
 // ── Build sidebar ─────────────────────────────────────────────────────────────
 function buildSidebar() {
   const nav = $('sidebarNav');
@@ -1885,6 +2058,11 @@ function selectPage(pageId, preserveScroll = false) {
       wr.className = 'field-row widget';
       wr.appendChild(buildSlotImageWidget('adv-wrap', 'Section Image (Wrap product)'));
       body.appendChild(wr);
+
+      const wz = document.createElement('div');
+      wz.className = 'field-row widget';
+      wz.appendChild(buildWrapZoneEditor());
+      body.appendChild(wz);
     }
     if (pageId === 'home' && section.title === 'Amsterdam / Network section') {
       const wr = document.createElement('div');
