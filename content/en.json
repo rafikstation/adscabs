@@ -5,7 +5,7 @@
     "advertising": "Advertising",
     "partners": "Partners",
     "contact": "Contact",
-    "cta_btn": "Advertise"
+    "cta_btn": "ADVERTISE"
   },
   "footer": {
     "menu_title": "Menu",
@@ -64,9 +64,9 @@
   "about": {
     "page_crumb": "About",
     "page_kicker": "About us",
-    "hero_h1_line1": "We know the road.",
+    "hero_h1_line1": "WE KNOW THE ROAD.",
     "hero_h1_line2_prefix": "our ",
-    "hero_h1_highlight": "Network.",
+    "hero_h1_highlight": "NETWORK.",
     "hero_sub": "AdsCabs was not built in a boardroom. It was built by people who spent years inside the taxi and transport industry , and saw an opportunity that everyone else was driving past.",
     "story_kicker": "Our story",
     "story_h2": "Born in Amsterdam, traveling across the Netherlands",
@@ -111,7 +111,7 @@
     "cta_text": "Let's get acquainted. We'd love to tell you more about our network and possibilities.",
     "cta_btn1": "Get in touch",
     "cta_btn2": "View advertising",
-    "hero_h1_line2": "We built the      ",
+    "hero_h1_line2": "WE BUILT THE ",
     "story_left_kicker": "The story",
     "story_left_h2": "From the industry, for the industry",
     "story_left_p1": "The founders of AdsCabs come from a background in aviation, transport logistics, and mobility operations. We have managed fleets, coordinated passenger flows, and solved problems that only make sense when you've stood on the ground watching them happen.",
