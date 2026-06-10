@@ -241,10 +241,19 @@
   canvas.width  = IW;
   canvas.height = IH;
 
-  /* Load base vehicle image */
-  vehicleImg = new Image();
-  vehicleImg.onload = function () { render(); };
-  vehicleImg.src = '/content/wrapping.png';
+  /* Load base vehicle image — prefer admin-uploaded slot image, fall back to default */
+  function loadVehicle(src) {
+    vehicleImg = new Image();
+    vehicleImg.onload = function () { render(); };
+    vehicleImg.src = src;
+  }
+
+  fetch('/api/slot-image')
+    .then(function (r) { return r.json(); })
+    .then(function (slots) {
+      loadVehicle(slots['adv-wrap'] || '/content/wrapping.png');
+    })
+    .catch(function () { loadVehicle('/content/wrapping.png'); });
 
   /* ── Render ─────────────────────────────────────────────────────── */
   function render() {

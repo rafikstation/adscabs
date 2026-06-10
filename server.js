@@ -149,7 +149,7 @@ app.delete('/api/hero-bg', requireAdmin, (req, res) => {
 });
 
 // ── Section slot image API ────────────────────────────────────────────────────
-const ALLOWED_SLOT_IDS = ['net-taxi', 'cta-image'];
+const ALLOWED_SLOT_IDS = ['net-taxi', 'cta-image', 'adv-wrap'];
 
 function readSlotImages() {
   const file = path.join(CONTENT_DIR, 'slot-images.json');
