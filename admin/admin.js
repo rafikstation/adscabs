@@ -266,6 +266,19 @@ const SCHEMA = [
         ]
       },
       {
+        title: 'Wrap product',
+        fields: [
+          { key: 'advertising.wrap_kicker', label: 'Kicker',    type: 'input' },
+          { key: 'advertising.wrap_h2',     label: 'Heading',   type: 'input', full: true },
+          { key: 'advertising.wrap_text',   label: 'Paragraph', type: 'textarea', full: true },
+          { key: 'advertising.wrap_tick1',  label: 'Bullet 1',  type: 'input', full: true },
+          { key: 'advertising.wrap_tick2',  label: 'Bullet 2',  type: 'input', full: true },
+          { key: 'advertising.wrap_tick3',  label: 'Bullet 3',  type: 'input', full: true },
+          { key: 'advertising.wrap_tick4',  label: 'Bullet 4',  type: 'input', full: true },
+          { key: 'advertising.wrap_btn',    label: 'Button',    type: 'input' },
+        ]
+      },
+      {
         title: 'Why section',
         fields: [
           { key: 'advertising.why_kicker', label: 'Kicker',     type: 'input' },
@@ -1865,6 +1878,12 @@ function selectPage(pageId, preserveScroll = false) {
       const wr = document.createElement('div');
       wr.className = 'field-row widget';
       wr.appendChild(buildBrandLogosWidget());
+      body.appendChild(wr);
+    }
+    if (pageId === 'advertising' && section.title === 'Wrap product') {
+      const wr = document.createElement('div');
+      wr.className = 'field-row widget';
+      wr.appendChild(buildSlotImageWidget('adv-wrap', 'Section Image (Wrap product)'));
       body.appendChild(wr);
     }
     if (pageId === 'home' && section.title === 'Amsterdam / Network section') {
