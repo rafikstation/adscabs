@@ -167,7 +167,7 @@ image-slot{--radius:0;}
 .hero-bg-remove-btn{display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:7px 9px;cursor:pointer;backdrop-filter:blur(8px);transition:background .15s;line-height:1;}
 .hero-bg-remove-btn:hover{background:rgba(180,40,40,.75);}
 .page-hero .kicker{margin-bottom:20px;}
-.page-hero h1{color:#fff;font-weight:900;font-size:clamp(40px,5vw,60px);line-height:1.0;letter-spacing:-1px;text-transform:uppercase;max-width:760px;}
+.page-hero h1{color:#fff;font-weight:900;font-size:clamp(40px,5vw,60px);line-height:1.0;letter-spacing:-1px;text-transform:uppercase;max-width:760px;font-family:var(--headline,var(--sans));}
 .page-hero h1 .y{color:var(--yellow);}
 .page-hero p{color:#cfcfcf;font-size:17px;line-height:1.6;max-width:540px;margin:24px 0 0;}
 .page-hero .ph-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;}
